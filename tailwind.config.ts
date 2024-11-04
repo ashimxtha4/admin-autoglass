@@ -9,6 +9,16 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+	container: {
+		center: true,
+		padding: {
+		  DEFAULT: '1rem',
+		  sm: '1rem',
+		  md: '1rem',
+		  lg: '2rem',
+		  xl: '2.5rem'
+		}
+	  },
     extend: {
       colors: {
         background: "hsl(var(--background))",

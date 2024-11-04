@@ -1,0 +1,23 @@
+export const VEHICLE_MODELS = [
+  { label: '500', value: '500', type: 'suv' },
+  { label: '595', value: '595', type: 'suv' },
+  { label: '695', value: '695', type: 'suv' },
+  { label: 'Giulia', value: 'giulia', type: 'sedan' },
+  { label: 'Stelvio', value: 'stelvio', type: 'suv' },
+  { label: 'Tonale', value: 'tonale', type: 'suv' },
+  { label: 'Rocsta', value: 'rocsta', type: 'ute-truck' },
+  { label: 'Topic', value: 'topic', type: 'van' },
+  { label: 'A3', value: 'a3', type: 'sedan' },
+  { label: 'Q5', value: 'q5', type: 'suv' },
+  { label: 'Q7', value: 'q7', type: 'suv' },
+  { label: 'Mini', value: 'mini', type: 'suv' },
+  { label: 'A40', value: 'a40', type: 'sedan' },
+  { label: 'TK', value: 'tk', type: 'truck' },
+  { label: 'CF', value: 'cf', type: 'truck' },
+  { label: 'Bentayga', value: 'bentayga', type: 'suv' },
+  { label: 'Continental GT', value: 'continental-gt', type: 'sedan' },
+  { label: 'Flying Spur', value: 'flying-spur', type: 'sedan' },
+  { label: '3 Series', value: '3-series', type: 'sedan' },
+  { label: '5 Series', value: '5-series', type: 'sedan' },
+  { label: 'X5', value: 'x5', type: 'suv' }
+]

@@ -1,0 +1,20 @@
+export const VEHICLE_YEAR = [
+  { label: '2007-present', value: '2007-present' },
+  { label: '2012-present', value: '2012-present' },
+  { label: '2014-present', value: '2014-present' },
+  { label: '2015-present', value: '2015-present' },
+  { label: '2016-present', value: '2016-present' },
+  { label: '1990s', value: '1990s' },
+  { label: '1990s', value: '1990s' },
+  { label: '2003-present', value: '2003-present' },
+  { label: '2008-present', value: '2008-present' },
+  { label: '1959-2000', value: '1959-2000' },
+  { label: '1947-1954', value: '1947-1954' },
+  { label: '1960-1980', value: '1960-1980' },
+  { label: '1960-1990', value: '1960-1990' },
+  { label: '2015-present', value: '2015-present' },
+  { label: '2003-present', value: '2003-present' },
+  { label: '2005-present', value: '2005-present' },
+  { label: '2012-present', value: '2012-present' },
+  { label: '2013-present', value: '2013-present' }
+]
