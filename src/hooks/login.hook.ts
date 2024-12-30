@@ -1,7 +1,9 @@
+import { isTokenExpired } from "@/components/admin"
 import { useGetLogin } from "@/services/api/api-service/admin/auth/login"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { isAxiosError } from "axios"
 import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { z } from "zod"
@@ -24,6 +26,20 @@ export const useLogin = () => {
     })
 
   const { mutateAsync } = useGetLogin()
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+        if (token) {
+          if (isTokenExpired(token)) {
+            localStorage.removeItem('token')
+            router.push('/login')
+          } else {
+            router.push('/')
+          }
+        } else {
+          return router.push('/login')
+        }
+  }, [])
 
   const onSubmit = async (data: loginSchemaProps) => {
     try {

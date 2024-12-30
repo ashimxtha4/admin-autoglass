@@ -6,7 +6,9 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import SideBarContent from './sidebar-content'
 import { SIDEBAR_MENU_ITEMS } from '@/constants/sidebar-menu-items'
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { jwtDecode } from 'jwt-decode'
+import toast from 'react-hot-toast'
 
 type SidebarProps = { href: string; children: string }
 
@@ -16,8 +18,19 @@ const NestedMenuLink = ({ href, children }: SidebarProps) => (
   </Link>
 )
 
+export function isTokenExpired(token: string) {
+  try {
+    const decoded: { exp: number } = jwtDecode(token)
+    const currentTime = Date.now() / 1000
+    return decoded.exp < currentTime
+  } catch (error) {
+    return true
+  }
+}
+
 const AdminSidebar: React.FC = () => {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const search = searchParams?.get('ref')
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null)
@@ -25,6 +38,19 @@ const AdminSidebar: React.FC = () => {
   const handleToggleMenu = (index: number) => {
     setOpenMenuIndex(openMenuIndex === index ? null : index)
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    if (!token) return router.push('/login')
+    if (token) {
+      if (isTokenExpired(token)) {
+        localStorage.removeItem('token')
+        router.push('/login')
+      } else {
+        router.push('/')
+      }
+    }
+  }, [])
 
   useEffect(() => {
     setIsSidebarOpen(prev => !prev)
