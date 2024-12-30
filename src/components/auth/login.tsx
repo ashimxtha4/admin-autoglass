@@ -14,12 +14,12 @@ import { Button } from '../ui/button'
 import { useLogin } from '@/hooks/login.hook'
 
 const LoginPage = () => {
-  const {form, onSubmit} = useLogin()
+  const { form, onSubmit } = useLogin()
 
   return (
-    <div className='flex min-h-screen items-center justify-center bg-gray-100'>
-      <div className='w-full max-w-md rounded-lg bg-white p-8 shadow-md'>
-        <h2 className='text-center text-2xl font-semibold text-gray-700'>
+    <div className='flex h-screen items-center justify-center'>
+      <div className='relative w-full max-w-md transform rounded-3xl bg-white p-8 shadow-lg'>
+        <h2 className='my-1 text-start text-3xl font-normal text-primary-text'>
           Login
         </h2>
         <Form {...form}>

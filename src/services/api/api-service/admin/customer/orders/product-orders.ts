@@ -3,7 +3,6 @@ import { api } from '@/services/endpoints/api.endpoints'
 import { IGenericResponse } from '@/utils/generic-data-response'
 import { useQuery } from '@tanstack/react-query'
 import { isAxiosError } from 'axios'
-import Cookies from 'js-cookie'
 
 export interface ICustomerOrdersProps {
   id: number
@@ -25,7 +24,7 @@ const getCustomerOrders = async () => {
       } catch (error) {
         if(isAxiosError(error)) {
             if(error.status === 401) {
-                Cookies.remove('token')
+                localStorage.removeItem('token')
                 window.location.href = '/login'
             }
         }

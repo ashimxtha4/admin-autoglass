@@ -8,7 +8,7 @@ const QuoteList = () => {
   return (
     <main className='grid grid-cols-1 gap-4 justify-between lg:grid-cols-2 min-w-fit'>
       {isLoading && <LoadingSpinner />}
-      {quoteList?.map(quote => <QuoteCard inquiry={quote} key={quote.id} />)}
+      {quoteList?.length ? quoteList.map(quote => <QuoteCard inquiry={quote} key={quote.id} />) : <>No Quotes Found</>}
     </main>
   )
 }

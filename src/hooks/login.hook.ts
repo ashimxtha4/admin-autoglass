@@ -19,9 +19,9 @@ export const loginSchema = z.object({
 
 export const useLogin = () => {
     const router = useRouter()
-  const form = useForm<loginSchemaProps>({
-    resolver: zodResolver(loginSchema)
-  })
+    const form = useForm<loginSchemaProps>({
+      resolver: zodResolver(loginSchema)
+    })
 
   const { mutateAsync } = useGetLogin()
 
@@ -34,6 +34,8 @@ export const useLogin = () => {
       if (isAxiosError(error)) {
         toast.error(error.message)
       }
+      console.log(error, 'error');
+      
       toast.error('Something went wrong!')
     }
   }

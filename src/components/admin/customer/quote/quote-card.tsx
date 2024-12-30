@@ -47,22 +47,22 @@ const QuoteCard = ({ inquiry }: { inquiry: IQuoteListProps }) => {
   return (
     <div className='flex min-w-fit flex-col gap-2 rounded-lg border p-4 shadow transition hover:shadow-lg'>
       <h3 className='text-lg font-semibold'>{inquiry?.name ?? 'N/A'}</h3>
-      <p className='text-gray-600'>Phone: {inquiry?.phone ?? 'N/A'}</p>
-      <p className='text-nowrap text-gray-600'>
+      <p className='text-primary-text/80'>Phone: {inquiry?.phone ?? 'N/A'}</p>
+      <p className='text-nowrap text-primary-text/80'>
         Email: {inquiry?.email ?? 'N/A'}
       </p>
-      <p className='text-gray-600'>Post Code: {inquiry?.post_code ?? 'N/A'}</p>
-      <p className='text-gray-600'>
+      <p className='text-primary-text/80'>Post Code: {inquiry?.post_code ?? 'N/A'}</p>
+      <p className='text-primary-text/80'>
         Preferred Type: {inquiry?.preferred_type ?? 'N/A'}
       </p>
-      <p className='text-gray-600'>Make: {inquiry?.make ?? 'N/A'}</p>
-      <p className='text-gray-600'>Model: {inquiry?.model ?? 'N/A'}</p>
-      <p className='text-gray-600'>Year: {inquiry?.year ?? 'N/A'}</p>
-      <p className='text-gray-600'>Body Type: {inquiry?.body_type ?? 'N/A'}</p>
-      <p className='text-gray-600'>
+      <p className='text-primary-text/80'>Make: {inquiry?.make ?? 'N/A'}</p>
+      <p className='text-primary-text/80'>Model: {inquiry?.model ?? 'N/A'}</p>
+      <p className='text-primary-text/80'>Year: {inquiry?.year ?? 'N/A'}</p>
+      <p className='text-primary-text/80'>Body Type: {inquiry?.body_type ?? 'N/A'}</p>
+      <p className='text-primary-text/80'>
         Comments: {inquiry?.additional_comments ?? 'N/A'}
       </p>
-      <p className='text-gray-600'>
+      <p className='text-primary-text/80'>
         Status:{' '}
         <span
           className={`rounded-md p-1 text-white ${inquiry.status === 'Replyed' ? 'bg-red-500' : 'bg-green-500'}`}
@@ -70,16 +70,15 @@ const QuoteCard = ({ inquiry }: { inquiry: IQuoteListProps }) => {
           {inquiry?.status ?? 'N/A'}
         </span>
       </p>
-      <p className='text-gray-600'>Reply: {inquiry.reply ?? 'N/A'}</p>
+      <p className='text-primary-text/80'>Reply: {inquiry.reply ?? 'N/A'}</p>
 
       <Button
         onClick={handleReplyClick}
         disabled={inquiry.status === 'Replyed'}
-        className={`rounded-md px-4 py-2 text-white transition ${
-          inquiry.status === 'Replyed'
+        className={`rounded-md px-4 py-2 text-white transition ${inquiry.status === 'Replyed'
             ? 'cursor-not-allowed bg-red-400'
             : 'bg-blue-500 hover:bg-blue-600'
-        }`}
+          }`}
       >
         Reply
       </Button>
