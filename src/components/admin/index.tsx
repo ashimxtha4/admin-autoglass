@@ -24,6 +24,9 @@ export function isTokenExpired(token: string) {
     const currentTime = Date.now() / 1000
     return decoded.exp < currentTime
   } catch (error) {
+    if (error instanceof Error) {
+      toast.error(error.message)
+    }
     return true
   }
 }
@@ -50,7 +53,7 @@ const AdminSidebar: React.FC = () => {
         router.push('/')
       }
     }
-  }, [])
+  }, [router])
 
   useEffect(() => {
     setIsSidebarOpen(prev => !prev)

@@ -39,7 +39,7 @@ export const useLogin = () => {
         } else {
           return router.push('/login')
         }
-  }, [])
+  }, [router])
 
   const onSubmit = async (data: loginSchemaProps) => {
     try {
