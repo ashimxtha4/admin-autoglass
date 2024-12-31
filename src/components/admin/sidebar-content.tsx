@@ -10,6 +10,9 @@ import VehicleType from './vehicle/vehicle-type'
 import VehicleGroup from './vehicle/vehicle-group'
 import ProductOrders from './customer/orders/product-orders'
 import QuoteList from './customer/quote/quote-list'
+import ImportProduct from './product/import-products'
+import AddGlassType from './glass-type/add-glass-type'
+import ListGlassType from './glass-type/list-glass.type'
 
 const SideBarContent = () => {
   const searchParams = useSearchParams()
@@ -36,12 +39,14 @@ const SideBarContent = () => {
       return <VehicleGroup />
     case 'product-orders':
       return <ProductOrders />
+    case 'import-product':
+      return <ImportProduct />
     case 'quote-list':
       return <QuoteList />
     case 'add-glass-type':
-      return <>add-glass-type</>
+      return <AddGlassType />
     case 'glass-type-list':
-      return <>glass-type-list</>
+      return <ListGlassType />
     default:
       return
   }

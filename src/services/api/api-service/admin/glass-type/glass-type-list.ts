@@ -11,7 +11,6 @@ export interface IGlassTypeListProps {
   status: string
 }
 
-// get vehicle model
 const getGlassTypeList = async () => {
   return await httpClient.get<IGenericResponse<IGlassTypeListProps[]>>(
     api.admin.glassType.list.get
@@ -20,7 +19,7 @@ const getGlassTypeList = async () => {
 
 export const useGetGlassTypeList = () => {
   return useQuery({
-    queryKey: [api.admin.glassType.list.get],
-    queryFn: () => getGlassTypeList
+    queryKey: ['get' + api.admin.glassType.list.get],
+    queryFn: getGlassTypeList
   })
 }
