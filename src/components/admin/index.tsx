@@ -113,9 +113,15 @@ const AdminSidebar: React.FC = () => {
 
       {/* Content Wrapper */}
       <main className='flex-1 p-6 md:ml-64'>
-        <h1 className='text-2xl font-semibold'>
-          {search?.split('-').join(' ').toUpperCase() || 'Admin Dashboard'}
-        </h1>
+        <div className='flex mb-2 w-full justify-between items-center'>
+          <h1 className='text-2xl font-semibold'>
+            {search?.split('-').join(' ').toUpperCase() || 'Admin Dashboard'}
+          </h1>
+          <button type='button' onClick={() => {
+            localStorage.removeItem('token')
+            router.push('/login')
+          }} className='text-2xl font-bold rounded-full bg-red-400 text-white px-4 py-1 '>Logout</button>
+        </div>
         <SideBarContent />
       </main>
     </div>
