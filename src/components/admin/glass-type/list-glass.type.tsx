@@ -5,12 +5,12 @@ import {
     TableBody,
     TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
 import { cn } from '@/lib/utils'
+import { LoadingSpinner } from '@/components/ui/loading-spinner'
 
 const ListGlassType = () => {
 
@@ -21,6 +21,7 @@ const ListGlassType = () => {
 
     return (
         <section>
+            {isLoading && <LoadingSpinner />}
             <Table>
                 <TableCaption>Glass Type List</TableCaption>
                 <TableHeader>
