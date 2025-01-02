@@ -16,9 +16,6 @@ const ListGlassType = () => {
 
     const { data: glassTypesData, isLoading } = useGetGlassTypeList()
 
-    console.log(glassTypesData?.data?.data, 'glassTypesData');
-
-
     return (
         <section>
             {isLoading && <LoadingSpinner />}

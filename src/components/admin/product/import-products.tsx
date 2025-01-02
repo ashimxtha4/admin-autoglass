@@ -1,9 +1,106 @@
-import React from 'react'
+'use client';
 
-const ImportProduct = () => {
-  return (
-    <div>ImportProduct</div>
-  )
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import ButtonLoader from '@/utils/button-loader';
+import { cn } from '@/lib/utils';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import toast from 'react-hot-toast';
+
+function checkFileType(file: File | null) {
+  if (!file) return false;
+  const fileType = file.name.split('.').pop()?.toLowerCase();
+  return fileType === 'csv' || fileType === 'xlsx';
 }
 
-export default ImportProduct
+const importProductSchema = z.object({
+  file: z
+    .any()
+    .refine((file) => file instanceof File, { message: 'File is required' })
+    .refine((file) => checkFileType(file), {
+      message: 'Only .csv or .xlsx formats are supported.',
+    }),
+});
+
+export type TImportProductSchemaProps = z.infer<typeof importProductSchema>;
+
+const ImportProduct = () => {
+  const form = useForm<TImportProductSchemaProps>({
+    resolver: zodResolver(importProductSchema),
+    defaultValues: {
+      file: undefined,
+    },
+  });
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    form.setValue('file', file as File);
+    form.clearErrors('file');
+  };
+
+  const onSubmit = async (data: TImportProductSchemaProps) => {
+    try {
+      console.log('File Uploaded:', data.file);
+      toast.success('File uploaded successfully!');
+      form.reset();
+      // document.querySelector('input[type="file"]')!.value = ''; // Reset file input
+    } catch (error) {
+      toast.error('An error occurred. Please try again.');
+    }
+  };
+
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8 rounded-lg border border-primary-text/50 p-4"
+      >
+        <FormField
+          control={form.control}
+          name="file"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Upload Product File</FormLabel>
+              <FormControl>
+                <Input
+                  type="file"
+                  onChange={(e) => {
+                    handleFileChange(e); // Manually handle file selection
+                  }}
+                  onBlur={field.onBlur}
+                  ref={field.ref}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="!mt-2 flex gap-2 md:!mt-4">
+          <Button
+            type="submit"
+            variant="default"
+            className={cn(
+              'bg-primary-main text-lg font-semibold text-white hover:bg-primary-dark md:text-xl'
+            )}
+          >
+            {form.formState.isSubmitting ? <ButtonLoader /> : 'Upload File'}
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+};
+
+export default ImportProduct;

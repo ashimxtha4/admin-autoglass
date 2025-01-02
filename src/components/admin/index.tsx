@@ -13,7 +13,7 @@ import toast from 'react-hot-toast'
 type SidebarProps = { href: string; children: string }
 
 const NestedMenuLink = ({ href, children }: SidebarProps) => (
-  <Link href={href} className='block rounded-md px-4 py-1 hover:bg-gray-700'>
+  <Link href={href} className='block rounded-2xl px-4 py-1 bg-primary-text/85 hover:border-white/15 border border-white/5'>
     {children}
   </Link>
 )
@@ -65,17 +65,17 @@ const AdminSidebar: React.FC = () => {
       <Button
         variant='secondary'
         onClick={() => setIsSidebarOpen(prev => !prev)}
-        className='mt-2 p-2 text-xl md:hidden'
+        className='mt-[24px] p-2 text-xl md:hidden'
       >
         <FaBars />
       </Button>
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-20 w-64 transform bg-gray-800 text-white ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:translate-x-0`}
+        className={`fixed inset-y-0 left-0 z-20 w-64 transform bg-primary-text text-white ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:translate-x-0`}
       >
-        <div className='mt-2 flex items-center justify-between p-2'>
-          <span className='text-2xl font-bold'>Admin Panel</span>
+        <div className='mt-[24px] flex items-center justify-between p-2'>
+          <span className='text-2xl font-bold cursor-pointer' onClick={() => router.push('/')}>Admin</span>
           {/* Close Button for Mobile */}
           <Button
             variant='secondary'
@@ -87,10 +87,10 @@ const AdminSidebar: React.FC = () => {
         </div>
         <nav className='mt-4 space-y-2'>
           {SIDEBAR_MENU_ITEMS.map((menu, index) => (
-            <div key={index}>
+            <div key={index} className='p-1'>
               <Button
                 onClick={() => handleToggleMenu(index)}
-                className='flex w-full items-center rounded-md px-4 py-2 hover:bg-gray-700'
+                className='flex w-full border border-white/10 hover:border-white/30 text-base md:text-lg items-center rounded-2xl px-4 py-2 bg-primary-text/60 hover:bg-primary-text/80 backdrop-blur-3xl shadow-xl'
               >
                 {menu.title}
                 <FaChevronDown
@@ -113,14 +113,14 @@ const AdminSidebar: React.FC = () => {
 
       {/* Content Wrapper */}
       <main className='flex-1 p-6 md:ml-64'>
-        <div className='flex mb-2 w-full justify-between items-center'>
+        <div className='flex mb-1 w-full border-b border-b-primary-text pb-2 justify-between items-center'>
           <h1 className='text-2xl font-semibold'>
             {search?.split('-').join(' ').toUpperCase() || 'Admin Dashboard'}
           </h1>
           <button type='button' onClick={() => {
             localStorage.removeItem('token')
             router.push('/login')
-          }} className='text-2xl font-bold rounded-full bg-red-400 text-white px-4 py-1 '>Logout</button>
+          }} className='text-base font-bold rounded-full bg-red-400 text-white px-4 md:text-xl py-1 '>Logout</button>
         </div>
         <SideBarContent />
       </main>

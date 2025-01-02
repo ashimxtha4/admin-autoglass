@@ -38,6 +38,7 @@ const AddProduct = () => {
     vehicleSeriesData,
     vehicleBodyData
   } = useAddProduct()
+
   return (
     <>
       <Form {...form}>
@@ -263,11 +264,14 @@ const AddProduct = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {vehicleModelData?.map(option => (
-                      <SelectItem value={option.id.toString()} key={option.id}>
-                        {option.name}
-                      </SelectItem>
-                    ))}
+                    {
+                      vehicleModelData
+                      && Object.entries(vehicleModelData).map(([key, value]) => (
+                        <SelectItem value={value.ids.toString()} key={key}>
+                          {key}
+                        </SelectItem>
+                      ))
+                    }
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -344,11 +348,14 @@ const AddProduct = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {vehicleBodyData?.map(option => (
-                      <SelectItem value={option.id.toString()} key={option.id}>
-                        {option.name}
-                      </SelectItem>
-                    ))}
+                    {
+                      vehicleBodyData
+                      && Object.entries(vehicleBodyData).map(([key]) => (
+                        <SelectItem value={key} key={key}>
+                          {key}
+                        </SelectItem>
+                      ))
+                    }
                   </SelectContent>
                 </Select>
                 <FormMessage />

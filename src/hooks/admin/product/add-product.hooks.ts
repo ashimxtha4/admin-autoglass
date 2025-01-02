@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -40,7 +40,19 @@ const addProductSchema = z.object({
   vehicle_series_id: z.string().optional(),
   size: z.string().optional(),
   color: z.string().optional(),
-  image: z.array(z.string()).optional()
+  image: z
+    .array(z.instanceof(File))
+    .refine(
+      files =>
+        files.every(
+          file =>
+            (file.size < 5000000 && file.type.includes('.jpeg')) ||
+            file.type.includes('.png') ||
+            file.type.includes('.jpg')
+        ),
+      'Please upload a valid image file. (Accepted formats: .jpeg, .png, .jpg)'
+    )
+    .optional()
 })
 
 export type TAddProductSchemaProps = z.infer<typeof addProductSchema>
@@ -57,6 +69,10 @@ export const productStock = [
 
 export const useAddProduct = () => {
   const router = useRouter()
+  const [modelArray, setModelArray] = useState<
+    string[] | number[] | undefined
+  >()
+
   const { mutateAsync, isPending } = usePostAddProduct()
 
   const form = useForm<Partial<TAddProductSchemaProps>>({
@@ -78,28 +94,72 @@ export const useAddProduct = () => {
   const { data: vehicleBodyData, mutateAsync: mutateVehicleBody } =
     useGetVehicleBody()
 
-  useEffect(() => {
-    mutateVehicleMake()
-    mutateVehicleGroup()
-    mutateVehicleBody()
-  }, [mutateVehicleMake, mutateVehicleGroup, mutateVehicleBody])
+  const parseId = (id: string | undefined) => (id ? parseInt(id) : undefined)
 
   const vehicle_brand_id = form.watch('vehicle_brand_id')
-  const vehicle_model_id = form.watch('vehicle_model_id')
+  // const vehicle_model_id = form.watch('vehicle_model_id')
+  const vehicle_series_id = form.watch('vehicle_series_id')
+  const vehicle_type_id = form.watch('vehicle_type_id')
+  const modelValue = form.getValues('vehicle_model_id')
 
   useEffect(() => {
-    if (vehicle_brand_id) {
-      mutateVehicleModel(parseInt(vehicle_brand_id))
+    mutateVehicleMake()
+  }, [mutateVehicleMake])
+
+  useEffect(() => {
+    if (modelValue) {
+      let modelArrayString = Array.isArray(modelValue)
+        ? modelValue
+        : [modelValue]
+
+      // Convert string array to number array
+      modelArrayString = modelArrayString.flatMap(value =>
+        typeof value === 'string' ? value.split(',').map(Number) : [value]
+      )
+
+      setModelArray(modelArrayString)
+    }
+  }, [modelValue])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (vehicle_brand_id) {
+        await mutateVehicleModel(parseInt(vehicle_brand_id))
+      }
+
+      if (vehicle_brand_id || modelArray) {
+        await mutateVehicleSeries({
+          vehicle_brand_id: parseInt(vehicle_brand_id as string),
+          vehicle_model_id: modelArray?.map(val => parseInt(val as string))
+        })
+      }
+
+      if (vehicle_brand_id || modelArray || vehicle_type_id) {
+        await mutateVehicleGroup({
+          vehicle_brand_id: parseInt(vehicle_brand_id as string),
+          vehicle_model_id: modelArray?.map(val => parseInt(val as string)),
+          vehicle_type_id: parseId(vehicle_type_id)
+        })
+      }
+
+      if (vehicle_brand_id || modelArray) {
+        await mutateVehicleBody({
+          vehicle_brand_id: parseInt(vehicle_brand_id as string),
+          vehicle_model_id: modelArray?.map(val => parseInt(val as string))
+        })
+      }
     }
 
-    if (vehicle_model_id) {
-      mutateVehicleSeries(parseInt(vehicle_model_id))
-    }
+    fetchData()
   }, [
     vehicle_brand_id,
+    modelArray,
+    vehicle_series_id,
+    vehicle_type_id,
     mutateVehicleModel,
-    vehicle_model_id,
-    mutateVehicleSeries
+    mutateVehicleSeries,
+    mutateVehicleBody,
+    mutateVehicleGroup
   ])
 
   const onSubmit = async (data: Partial<TAddProductSchemaProps>) => {
@@ -122,7 +182,7 @@ export const useAddProduct = () => {
     router,
     isPending,
     vehicleMakeData: vehicleMakeData?.data?.data,
-    vehicleModelData: vehicleModelData?.data?.data,
+    vehicleModelData: vehicleModelData?.data,
     vehicleGroupData: vehicleGroupData?.data?.data,
     vehicleBodyData: vehicleBodyData?.data?.data,
     vehicleSeriesData: vehicleSeriesData?.data?.data
