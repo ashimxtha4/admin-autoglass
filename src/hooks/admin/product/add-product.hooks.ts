@@ -41,7 +41,7 @@ const addProductSchema = z.object({
   size: z.string().optional(),
   color: z.string().optional(),
   image: z
-    .array(z.instanceof(File))
+    .array(z.any())
     .refine(
       files =>
         files.every(

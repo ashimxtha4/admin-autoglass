@@ -17,12 +17,13 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
+import { usePostImportProduct } from '@/services/api/api-service/admin/product/import-product';
+import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
-function checkFileType(file: File | null) {
-  if (!file) return false;
-  const fileType = file.name.split('.').pop()?.toLowerCase();
+const checkFileType = (file: File) => {
+  const fileType = file.type.split('/').pop();
   return fileType === 'csv' || fileType === 'xlsx';
-}
+};
 
 const importProductSchema = z.object({
   file: z
@@ -36,6 +37,9 @@ const importProductSchema = z.object({
 export type TImportProductSchemaProps = z.infer<typeof importProductSchema>;
 
 const ImportProduct = () => {
+
+  const { isPending, mutateAsync } = usePostImportProduct();
+
   const form = useForm<TImportProductSchemaProps>({
     resolver: zodResolver(importProductSchema),
     defaultValues: {
@@ -51,55 +55,60 @@ const ImportProduct = () => {
 
   const onSubmit = async (data: TImportProductSchemaProps) => {
     try {
-      console.log('File Uploaded:', data.file);
-      toast.success('File uploaded successfully!');
+      await mutateAsync({ file: data.file });
       form.reset();
-      // document.querySelector('input[type="file"]')!.value = ''; // Reset file input
+      return toast.success('File uploaded successfully!');
     } catch (error) {
-      toast.error('An error occurred. Please try again.');
+      if (error instanceof Error) {
+        return toast.error(error.message);
+      }
+      return toast.error('An error occurred. Please try again.');
     }
   };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 rounded-lg border border-primary-text/50 p-4"
-      >
-        <FormField
-          control={form.control}
-          name="file"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Upload Product File</FormLabel>
-              <FormControl>
-                <Input
-                  type="file"
-                  onChange={(e) => {
-                    handleFileChange(e); // Manually handle file selection
-                  }}
-                  onBlur={field.onBlur}
-                  ref={field.ref}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div className="!mt-2 flex gap-2 md:!mt-4">
-          <Button
-            type="submit"
-            variant="default"
-            className={cn(
-              'bg-primary-main text-lg font-semibold text-white hover:bg-primary-dark md:text-xl'
+    <>
+      {isPending && <LoadingSpinner />}
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-8 rounded-lg border border-primary-text/50 p-4"
+        >
+          <FormField
+            control={form.control}
+            name="file"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Upload Product File</FormLabel>
+                <FormControl>
+                  <Input
+                    type="file"
+                    onChange={(e) => {
+                      handleFileChange(e);
+                    }}
+                    onBlur={field.onBlur}
+                    ref={field.ref}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
-          >
-            {form.formState.isSubmitting ? <ButtonLoader /> : 'Upload File'}
-          </Button>
-        </div>
-      </form>
-    </Form>
+          />
+
+          <div className="!mt-2 flex gap-2 md:!mt-4">
+            <Button
+              type="submit"
+              variant="default"
+              className={cn(
+                'bg-primary-main text-lg font-semibold text-white hover:bg-primary-dark md:text-xl'
+              )}
+            >
+              {form.formState.isSubmitting ? <ButtonLoader /> : 'Upload File'}
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </>
   );
 };
 

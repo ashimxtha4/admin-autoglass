@@ -1,5 +1,5 @@
 import { useSearchParams } from 'next/navigation'
-import React from 'react'
+import React, { Suspense } from 'react'
 import AddProduct from './product/add-product'
 import ImportProducts from './product/import-products'
 import ProductList from './product/product-list'
@@ -13,6 +13,7 @@ import QuoteList from './customer/quote/quote-list'
 import ImportProduct from './product/import-products'
 import AddGlassType from './glass-type/add-glass-type'
 import ListGlassType from './glass-type/list-glass.type'
+import { LoadingSpinner } from '../ui/loading-spinner'
 
 const SideBarContent = () => {
   const searchParams = useSearchParams()
@@ -20,7 +21,9 @@ const SideBarContent = () => {
 
   switch (search) {
     case 'add-products':
-      return <AddProduct />
+      return <Suspense fallback={<LoadingSpinner />}>
+        <AddProduct />
+      </Suspense>
     case 'import-products':
       return <ImportProducts />
     case 'product-list':

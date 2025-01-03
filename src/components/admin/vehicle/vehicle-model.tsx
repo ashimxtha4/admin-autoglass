@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { usePostVehicleModel } from '@/services/api/api-service/admin/vehicle/vehicle-model';
-import { useGetVehicleBody } from '@/services/api/api-service/vehicle/vehicle-body';
+// import { useGetVehicleBody } from '@/services/api/api-service/vehicle/vehicle-body';
 import { useGetVehicleMake } from '@/services/api/api-service/vehicle/vehicle-make';
 import ButtonLoader from '@/utils/button-loader';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -40,12 +40,12 @@ export type TvehicleModelSchemaProps = z.infer<typeof vehicleModelSchema>;
 const VehicleModel = () => {
   const { mutateAsync, isPending } = usePostVehicleModel();
   const { data: vehicleMakeData, mutateAsync: mutateVehicleMake } = useGetVehicleMake();
-  const { data: vehicleBodyData, mutateAsync: mutateVehicleBody } = useGetVehicleBody();
+  // const { data: vehicleBodyData, mutateAsync: mutateVehicleBody } = useGetVehicleBody();
 
   useEffect(() => {
     mutateVehicleMake();
-    mutateVehicleBody();
-  }, [mutateVehicleMake, mutateVehicleBody]);
+    // mutateVehicleBody();
+  }, [mutateVehicleMake]);
 
   const form = useForm<TvehicleModelSchemaProps>({
     resolver: zodResolver(vehicleModelSchema)
@@ -122,7 +122,7 @@ const VehicleModel = () => {
           />
 
           {/* Vehicle Type Select */}
-          <FormField
+          {/* <FormField
             control={form.control}
             name='vehicle_type_id'
             render={({ field }) => (
@@ -145,7 +145,7 @@ const VehicleModel = () => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           <div className='flex justify-center mt-6'>
             <Button
