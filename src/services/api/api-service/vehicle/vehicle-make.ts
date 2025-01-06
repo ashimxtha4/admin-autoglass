@@ -2,7 +2,7 @@ import { api } from '@/services/endpoints/api.endpoints'
 import httpClient from '../../axios-service'
 import { useMutation } from '@tanstack/react-query'
 
-interface VehicleMakeProps {
+export interface VehicleMakeProps {
   id: number
   name: string
   status: string

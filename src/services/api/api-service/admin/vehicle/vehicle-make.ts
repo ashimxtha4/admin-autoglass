@@ -1,8 +1,10 @@
-import { TVehicleMakeSchemaProps } from '@/components/admin/vehicle/vehicle-make'
+import { TVehicleMakeSchemaProps } from '@/components/admin/vehicle/make/add-vehicle-make'
 import httpClient from '@/services/api/axios-service'
 import { api } from '@/services/endpoints/api.endpoints'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
+import { VehicleMakeProps } from '../../vehicle/vehicle-make'
+import { IGenericResponse } from '@/utils/generic-data-response'
 
 const postVehicleMake = async (data: TVehicleMakeSchemaProps) => {
   return await httpClient.post(api.admin.vehicle.make.create.post, data)
@@ -17,7 +19,9 @@ export const usePostVehicleMake = () => {
 
 // get vehicle make list
 const getVehicleMake = async (page: number) => {
-  return await httpClient.get(api.admin.vehicle.make.list.get(page))
+  return await httpClient.get<IGenericResponse<VehicleMakeProps[]>>(
+    api.admin.vehicle.make.list.get(page)
+  )
 }
 
 export const useGetVehicleMakeList = () => {
