@@ -14,7 +14,7 @@ export interface ProductDetailsData {
   name: string
   auto_glass_shop_catg: string
   auto_glass_shop_id: string
-  description: any
+  description: string | null
   invoice_description: string
   body: string
   sku: string

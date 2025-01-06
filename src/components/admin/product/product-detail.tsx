@@ -4,7 +4,6 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import { cn } from '@/lib/utils'
 import { DEFAULT_IMAGE } from '@/utils/default-image-url'
 import { Card } from '@/components/ui/card'
-import { FaRegStar, FaStar } from 'react-icons/fa'
 import { useGetProductDetails } from '@/services/api/api-service/admin/product/product-detail'
 
 const ProductDetail = () => {
