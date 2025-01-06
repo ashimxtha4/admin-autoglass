@@ -94,7 +94,7 @@ export const api = {
           post: '/vehicle_type'
         },
         list: {
-          get: '/vehicle_type'
+          get: (page: number) => `/vehicle_type?page=${page}`
         }
       },
       position: {
@@ -102,7 +102,7 @@ export const api = {
           post: '/vehicle_position'
         },
         list: {
-          get: '/vehicle_position'
+          get: (page: number) => `/vehicle_position?page=${page}`
         }
       },
       model: {
@@ -118,7 +118,7 @@ export const api = {
           post: '/vehicle_series'
         },
         list: {
-          get: '/vehicle_series'
+          get: (page: number) => `/vehicle_series?page=${page}`
         }
       }
     }

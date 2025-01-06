@@ -2,6 +2,7 @@ import httpClient from '@/services/api/axios-service'
 import { api } from '@/services/endpoints/api.endpoints'
 import { IGenericResponse } from '@/utils/generic-data-response'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { useSearchParams } from 'next/navigation'
 
 const postVehicleBody = async (data: FormData) => {
   return await httpClient.post(api.admin.vehicle.type.create.post, data)
@@ -22,15 +23,17 @@ export interface IVehicleTypeProps {
 }
 
 // get vehicle type list
-const getVehicleTypeList = async () => {
+const getVehicleTypeList = async (page: number) => {
   return await httpClient.get<IGenericResponse<IVehicleTypeProps[]>>(
-    api.admin.vehicle.type.list.get
+    api.admin.vehicle.type.list.get(page)
   )
 }
 
 export const useGetVehicleTypeList = () => {
+  const searchParams = useSearchParams()
+  const page = parseInt(searchParams?.get('page') || '1')
   return useQuery({
-    queryKey: [api.admin.vehicle.type.list.get],
-    queryFn: () => getVehicleTypeList
+    queryKey: [api.admin.vehicle.type.list.get, page],
+    queryFn: () => getVehicleTypeList(page)
   })
 }

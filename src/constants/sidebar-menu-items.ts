@@ -28,7 +28,7 @@ export const SIDEBAR_MENU_ITEMS = [
       { href: '?ref=vehicle-make', label: 'Make' },
       { href: '?ref=vehicle-model', label: 'Model' },
       { href: '?ref=vehicle-series', label: 'Series' },
-      { href: '?ref=vehicle-year', label: 'Year' },
+      // { href: '?ref=vehicle-year', label: 'Year' },
       { href: '?ref=vehicle-body', label: 'Body' },
       { href: '?ref=vehicle-group', label: 'Group' }
     ]

@@ -20,12 +20,11 @@ const VehicleModel = () => {
     router.push(`?${params.toString()}`);
   };
 
-
   return (
     <>
-      <aside className='flex my-2 w-full justify-between bg-white p-2 rounded-full items-center'>
-        <button onClick={handleAddVehicleMake} className={cn(!searchParams.get('get') && 'text-base font-medium border-b-primary-text/80 border-b', 'text-primary-text')}>Add Vehicle Model</button>
-        <button onClick={handleGetVehicleMake} className={cn(searchParams.get('get') && 'text-base font-medium border-b-primary-text/80 border-b', 'text-primary-text')}>Get Vehicle Model</button>
+      <aside className='grid grid-cols-2 my-2 w-full justify-between bg-white p-2 rounded-full items-center'>
+        <button onClick={handleAddVehicleMake} className={cn(!searchParams.get('get') && 'text-lg font-medium', 'text-primary-text')}>Add Vehicle Model</button>
+        <button onClick={handleGetVehicleMake} className={cn(searchParams.get('get') && 'text-lg font-medium', 'text-primary-text')}>Get Vehicle Model</button>
       </aside>
       {
         searchParams.get('get') ? <GetVehicleModel /> : <AddVehicleModel />

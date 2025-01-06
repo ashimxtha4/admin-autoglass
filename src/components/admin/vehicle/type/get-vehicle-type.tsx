@@ -1,18 +1,11 @@
 import React from 'react'
-import { LoadingSpinner } from '@/components/ui/loading-spinner'
-import { useGetVehicleMakeList } from '@/services/api/api-service/admin/vehicle/vehicle-make'
+import { useGetVehicleTypeList } from '@/services/api/api-service/admin/vehicle/vehicle-body'
 import AutoGlassPagination from '@/utils/autoglass-pagination'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
+import { LoadingSpinner } from '@/components/ui/loading-spinner'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
-const GetVehicleMake = () => {
-    const { data: vehicleMakeList, isLoading } = useGetVehicleMakeList()
+const GetVehicleType = () => {
+    const { data: vehicleTypeList, isLoading } = useGetVehicleTypeList()
 
     const updateQueryParams = (key: string, value: string) => {
         const params = new URLSearchParams(window.location.search)
@@ -24,20 +17,20 @@ const GetVehicleMake = () => {
     const handlePageChange = (page: number) => {
         updateQueryParams('page', page.toString())
     }
-
     return (
         <>
             {isLoading && <LoadingSpinner />}
+
             <Table className='bg-white rounded-2xl p-4'>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Name</TableHead>
+                        <TableHead className="w-[200px]">Name</TableHead>
                         <TableHead>Status</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {
-                        vehicleMakeList?.data?.data.map((vehicleMake, index) => (
+                        vehicleTypeList?.data?.data.map((vehicleMake, index) => (
                             <TableRow key={index}>
                                 <TableCell>{vehicleMake.name}</TableCell>
                                 <TableCell>{vehicleMake.status}</TableCell>
@@ -47,13 +40,14 @@ const GetVehicleMake = () => {
                 </TableBody>
             </Table>
             <AutoGlassPagination
-                currentPage={vehicleMakeList?.data?.meta?.current_page || 1}
-                itemsPerPage={vehicleMakeList?.data?.meta.per_page ?? 15}
-                totalItems={vehicleMakeList?.data?.meta.total ?? 100}
+                currentPage={vehicleTypeList?.data?.meta?.current_page || 1}
+                itemsPerPage={vehicleTypeList?.data?.meta.per_page ?? 15}
+                totalItems={vehicleTypeList?.data?.meta.total ?? 100}
                 onPageChange={handlePageChange}
             />
+
         </>
     )
 }
 
-export default GetVehicleMake
+export default GetVehicleType

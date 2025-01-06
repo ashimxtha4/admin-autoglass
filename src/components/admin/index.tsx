@@ -120,7 +120,7 @@ const AdminSidebar: React.FC = () => {
           <button type='button' onClick={() => {
             localStorage.removeItem('token')
             router.push('/login')
-          }} className='text-base font-bold rounded-full bg-red-400 text-white px-4 md:text-xl py-1 '>Logout</button>
+          }} className='text-base font-bold rounded-full bg-white text-red-600 px-4 md:text-xl py-1 '>LOGOUT</button>
         </div>
         <SideBarContent />
       </main>

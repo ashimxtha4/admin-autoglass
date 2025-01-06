@@ -2,6 +2,7 @@ import httpClient from '@/services/api/axios-service'
 import { api } from '@/services/endpoints/api.endpoints'
 import { IGenericResponse } from '@/utils/generic-data-response'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useSearchParams } from 'next/navigation'
 
 const postVehicleSeries = async (data: {
   name: string
@@ -36,15 +37,17 @@ export interface IVehicleSeriesProps {
 }
 
 // get vehicle model
-const getVehicleSeriesList = async () => {
+const getVehicleSeriesList = async (page: number) => {
   return await httpClient.get<IGenericResponse<IVehicleSeriesProps[]>>(
-    api.admin.vehicle.series.list.get
+    api.admin.vehicle.series.list.get(page)
   )
 }
 
 export const useGetVehicleSeriesList = () => {
+  const searchParams = useSearchParams()
+  const page = parseInt(searchParams?.get('page') || '1')
   return useQuery({
-    queryKey: [api.admin.vehicle.series.list.get],
-    queryFn: () => getVehicleSeriesList
+    queryKey: [api.admin.vehicle.series.list.get, page],
+    queryFn: () => getVehicleSeriesList(page)
   })
 }

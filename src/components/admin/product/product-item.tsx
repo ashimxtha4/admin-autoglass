@@ -12,7 +12,7 @@ const ProductItem = ({ product }: { product: IProductListProps }) => {
     <div
       onClick={() => { router.push('?ref=product-details&id=' + product.id) }}
       key={product.id}
-      className='rounded-lg border border-gray-400 p-4 shadow transition hover:shadow-lg cursor-pointer'
+      className='rounded-lg bg-white border p-4 shadow transition hover:shadow-lg cursor-pointer'
     >
       <Image
         src={defaultImage || product.image}

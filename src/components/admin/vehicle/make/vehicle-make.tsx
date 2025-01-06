@@ -23,9 +23,9 @@ const VehicleMake = () => {
 
   return (
     <>
-      <aside className='flex my-2 w-full justify-between bg-white p-2 rounded-full items-center'>
-        <button onClick={handleAddVehicleMake} className={cn(!searchParams.get('get') && 'text-base font-medium border-b-primary-text/80 border-b', 'text-primary-text')}>Add Vehicle Make</button>
-        <button onClick={handleGetVehicleMake} className={cn(searchParams.get('get') && 'text-base font-medium border-b-primary-text/80 border-b', 'text-primary-text')}>Get Vehicle Make</button>
+      <aside className='grid grid-cols-2 my-2 w-full justify-between bg-white p-2 rounded-full items-center'>
+        <button onClick={handleAddVehicleMake} className={cn(!searchParams.get('get') && 'text-lg font-medium', 'text-primary-text')}>Add Vehicle Make</button>
+        <button onClick={handleGetVehicleMake} className={cn(searchParams.get('get') && 'text-lg font-medium', 'text-primary-text')}>Get Vehicle Make</button>
       </aside>
       {
         searchParams.get('get') ? <GetVehicleMake /> : <AddVehicleMake />

@@ -1,18 +1,11 @@
 import React from 'react'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
-import { useGetVehicleMakeList } from '@/services/api/api-service/admin/vehicle/vehicle-make'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { useGetVehicleSeriesList } from '@/services/api/api-service/admin/vehicle/vehicle-series'
 import AutoGlassPagination from '@/utils/autoglass-pagination'
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"
 
-const GetVehicleMake = () => {
-    const { data: vehicleMakeList, isLoading } = useGetVehicleMakeList()
+const GetVehicleSeries = () => {
+    const { data: vehicleSeriesList, isLoading } = useGetVehicleSeriesList()
 
     const updateQueryParams = (key: string, value: string) => {
         const params = new URLSearchParams(window.location.search)
@@ -24,36 +17,43 @@ const GetVehicleMake = () => {
     const handlePageChange = (page: number) => {
         updateQueryParams('page', page.toString())
     }
-
     return (
         <>
             {isLoading && <LoadingSpinner />}
+
             <Table className='bg-white rounded-2xl p-4'>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Name</TableHead>
+                        <TableHead className="w-[200px]">Name</TableHead>
+                        <TableHead>Vehicle Model</TableHead>
                         <TableHead>Status</TableHead>
+                        <TableHead>Start Date</TableHead>
+                        <TableHead>End Date</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {
-                        vehicleMakeList?.data?.data.map((vehicleMake, index) => (
+                        vehicleSeriesList?.data?.data.map((vehicleMake, index) => (
                             <TableRow key={index}>
                                 <TableCell>{vehicleMake.name}</TableCell>
+                                <TableCell>{vehicleMake.vechicle_model}</TableCell>
                                 <TableCell>{vehicleMake.status}</TableCell>
+                                <TableCell>{vehicleMake.start_date ?? 'N/A'}</TableCell>
+                                <TableCell>{vehicleMake.end_date ?? 'N/A'}</TableCell>
                             </TableRow>
                         ))
                     }
                 </TableBody>
             </Table>
             <AutoGlassPagination
-                currentPage={vehicleMakeList?.data?.meta?.current_page || 1}
-                itemsPerPage={vehicleMakeList?.data?.meta.per_page ?? 15}
-                totalItems={vehicleMakeList?.data?.meta.total ?? 100}
+                currentPage={vehicleSeriesList?.data?.meta?.current_page || 1}
+                itemsPerPage={vehicleSeriesList?.data?.meta.per_page ?? 15}
+                totalItems={vehicleSeriesList?.data?.meta.total ?? 100}
                 onPageChange={handlePageChange}
             />
+
         </>
     )
 }
 
-export default GetVehicleMake
+export default GetVehicleSeries
