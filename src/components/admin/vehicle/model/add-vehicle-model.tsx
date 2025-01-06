@@ -59,7 +59,7 @@ const AddVehicleModel = () => {
         (async () => {
             await mutateVehicleType({ vehicle_brand_id: parseInt(vehicleMake) });
         })()
-    }, [!!mutateVehicleType, !!vehicleMake]);
+    }, [mutateVehicleType, vehicleMake]);
 
     const onSubmit = async (data: TvehicleModelSchemaProps) => {
         try {
