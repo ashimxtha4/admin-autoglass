@@ -3,7 +3,6 @@ import React, { Suspense } from 'react'
 import AddProduct from './product/add-product'
 import ImportProducts from './product/import-products'
 import ProductList from './product/product-list'
-import VehicleModel from './vehicle/vehicle-model'
 import VehicleSeries from './vehicle/vehicle-series'
 import VehicleType from './vehicle/vehicle-type'
 import VehicleGroup from './vehicle/vehicle-group'
@@ -15,6 +14,7 @@ import ListGlassType from './glass-type/list-glass.type'
 import { LoadingSpinner } from '../ui/loading-spinner'
 import ProductDetail from './product/product-detail'
 import VehicleMake from './vehicle/make/vehicle-make'
+import VehicleModel from './vehicle/model/vehicle-model'
 
 const SideBarContent = () => {
   const searchParams = useSearchParams()

@@ -1,8 +1,9 @@
-import { TvehicleModelSchemaProps } from '@/components/admin/vehicle/vehicle-model'
+import { TvehicleModelSchemaProps } from '@/components/admin/vehicle/model/add-vehicle-model'
 import httpClient from '@/services/api/axios-service'
 import { api } from '@/services/endpoints/api.endpoints'
 import { IGenericResponse } from '@/utils/generic-data-response'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useSearchParams } from 'next/navigation'
 
 const postVehicleModel = async (data: TvehicleModelSchemaProps) => {
   return await httpClient.post(api.admin.vehicle.model.create.post, data)
@@ -32,15 +33,17 @@ export interface IVehicleModelProps {
 }
 
 // get vehicle model
-const getVehicleModelList = async () => {
+const getVehicleModelList = async (page: number) => {
   return await httpClient.get<IGenericResponse<IVehicleModelProps[]>>(
-    api.admin.vehicle.model.list.get
+    api.admin.vehicle.model.list.get(page)
   )
 }
 
 export const useGetVehicleModelList = () => {
+  const searchParams = useSearchParams()
+  const page = parseInt(searchParams?.get('page') || '1')
   return useQuery({
-    queryKey: [api.admin.vehicle.model.list.get],
-    queryFn: () => getVehicleModelList
+    queryKey: [api.admin.vehicle.model.list.get, page],
+    queryFn: () => getVehicleModelList(page)
   })
 }

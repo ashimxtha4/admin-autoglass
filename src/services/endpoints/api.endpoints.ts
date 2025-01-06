@@ -110,7 +110,7 @@ export const api = {
           post: '/vehicle_model'
         },
         list: {
-          get: '/vehicle_model'
+          get: (page: number) => `/vehicle_model?page=${page}`
         }
       },
       series: {

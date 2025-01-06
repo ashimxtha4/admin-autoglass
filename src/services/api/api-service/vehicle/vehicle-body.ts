@@ -15,7 +15,7 @@ export interface VehicleBodyProps {
 
 const getVehicleBody = async (data: {
   vehicle_brand_id: number
-  vehicle_model_id?: number[]
+  vehicle_model_id?: string[]
 }): Promise<{
   data: VehicleBodyProps
 }> => {
