@@ -14,6 +14,7 @@ import ImportProduct from './product/import-products'
 import AddGlassType from './glass-type/add-glass-type'
 import ListGlassType from './glass-type/list-glass.type'
 import { LoadingSpinner } from '../ui/loading-spinner'
+import ProductDetail from './product/product-detail'
 
 const SideBarContent = () => {
   const searchParams = useSearchParams()
@@ -42,6 +43,8 @@ const SideBarContent = () => {
       return <VehicleGroup />
     case 'product-orders':
       return <ProductOrders />
+    case 'product-details':
+      return <ProductDetail />
     case 'import-product':
       return <ImportProduct />
     case 'quote-list':

@@ -1,5 +1,5 @@
 export const api = {
-     // vehicle
+  // vehicle
   vehicle: {
     make: {
       get: '/vehicle_brand',
@@ -25,97 +25,102 @@ export const api = {
       post: '/general/vehicle_series_list'
     }
   },
- // admin
-    admin: {
-      login: {
-        post: '/login'
-      },
-      customer: {
-        quote: {
-          list: {
-            get: '/admin/customer/quotes'
-          },
-          detail: {
-            get: (id: number) => `/admin/customer/quotes/${id}`
-          },
-          reply: {
-            post: '/admin/customer/quote_reply'
-          }
+  // admin
+  admin: {
+    login: {
+      post: '/login'
+    },
+    customer: {
+      quote: {
+        list: {
+          get: '/admin/customer/quotes'
         },
-        orders: {
-          product: {
-            get: '/admin/customer/orders'
-          },
-          dispatch: {
-            post: '/admin/customer/orders/dispatch'
-          },
-          status: {
-            post: '/admin/customer/orders/change_status'
-          }
+        detail: {
+          get: (id: number) => `/admin/customer/quotes/${id}`
+        },
+        reply: {
+          post: '/admin/customer/quote_reply'
         }
       },
-      product: {
-        add: {
-          post: '/product'
+      orders: {
+        product: {
+          get: '/admin/customer/orders'
+        },
+        dispatch: {
+          post: '/admin/customer/orders/dispatch'
+        },
+        status: {
+          post: '/admin/customer/orders/change_status'
+        }
+      }
+    },
+    product: {
+      add: {
+        post: '/product'
+      },
+      list: {
+        get: (page: number) => `/product?page=${page}`
+      },
+      import: {
+        post: '/product/import'
+      },
+      detail: {
+        get: (id: number) => `/product/${id}`
+      },
+      update: {
+        patch: (id: number) => `/product/${id}`
+      }
+    },
+    glassType: {
+      list: {
+        get: '/glasstype'
+      },
+      add: {
+        post: '/glasstype'
+      }
+    },
+    vehicle: {
+      make: {
+        create: {
+          post: '/vehicle_brand'
         },
         list: {
-          get: (page: number) => `/product?page=${page}`
-        },
-        import: {
-          post: '/product/import'
+          get: (page: number) => `/vehicle_brand?page=${page}`
         }
       },
-      glassType: {
+      // body
+      type: {
+        create: {
+          post: '/vehicle_type'
+        },
         list: {
-          get: '/glasstype'
-        },
-        add: {
-          post: '/glasstype'
+          get: '/vehicle_type'
         }
       },
-      vehicle: {
-        make: {
-          create: {
-            post: '/vehicle_brand'
-          },
-          list: {
-            get: (page: number) => `/vehicle_brand?page=${page}`
-          }
+      position: {
+        create: {
+          post: '/vehicle_position'
         },
-        // body
-        type: {
-          create: {
-            post: '/vehicle_type'
-          },
-          list: {
-            get: '/vehicle_type'
-          }
+        list: {
+          get: '/vehicle_position'
+        }
+      },
+      model: {
+        create: {
+          post: '/vehicle_model'
         },
-        position: {
-          create: {
-            post: '/vehicle_position'
-          },
-          list: {
-            get: '/vehicle_position'
-          }
+        list: {
+          get: '/vehicle_model'
+        }
+      },
+      series: {
+        create: {
+          post: '/vehicle_series'
         },
-        model: {
-          create: {
-            post: '/vehicle_model'
-          },
-          list: {
-            get: '/vehicle_model'
-          }
-        },
-        series: {
-          create: {
-            post: '/vehicle_series'
-          },
-          list: {
-            get: '/vehicle_series'
-          }
+        list: {
+          get: '/vehicle_series'
         }
       }
     }
   }
-  
+}

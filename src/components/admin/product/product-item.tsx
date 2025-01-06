@@ -3,12 +3,16 @@ import Image from 'next/image'
 import defaultImage from '@/assets/default.png'
 import { IProductListProps } from '@/services/api/api-service/admin/product/product-list'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/navigation'
 
 const ProductItem = ({ product }: { product: IProductListProps }) => {
+  const router = useRouter()
+
   return (
     <div
+      onClick={() => { router.push('?ref=product-details&id=' + product.id) }}
       key={product.id}
-      className='rounded-lg border border-gray-400 p-4 shadow transition hover:shadow-lg'
+      className='rounded-lg border border-gray-400 p-4 shadow transition hover:shadow-lg cursor-pointer'
     >
       <Image
         src={defaultImage || product.image}
