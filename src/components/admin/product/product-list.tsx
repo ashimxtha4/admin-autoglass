@@ -3,20 +3,12 @@ import { useGetAdminProductList } from '@/services/api/api-service/admin/product
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import ProductItem from './product-item'
 import AutoGlassPagination from '@/utils/autoglass-pagination'
+import { usePaginationPageChange } from '@/hooks/pagination.hook'
 
 const ProductList = () => {
   const { data: products, isLoading, isError } = useGetAdminProductList()
 
-  const updateQueryParams = (key: string, value: string) => {
-    const params = new URLSearchParams(window.location.search)
-    params.set(key, value)
-    const newUrl = `${window.location.pathname}?${params.toString()}`
-    window.history.pushState({}, '', newUrl)
-  }
-
-  const handlePageChange = (page: number) => {
-    updateQueryParams('page', page.toString())
-  }
+  const { handlePageChange } = usePaginationPageChange()
 
   if (isError) return <div>Something went wrong!</div>
 

@@ -44,7 +44,7 @@ export const api = {
       },
       orders: {
         product: {
-          get: '/admin/customer/orders'
+          get: (page: number) => `/admin/customer/orders?page=${page}`
         },
         dispatch: {
           post: '/admin/customer/orders/dispatch'

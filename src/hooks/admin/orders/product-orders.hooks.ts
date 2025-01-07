@@ -9,7 +9,7 @@ export const useProductOrders = () => {
 
   const { mutateAsync: mutateStatusAsync, isPending: statusPending } =
     usePostChangeStatus()
-    
+
   const { mutateAsync: mutateDispatchAsync, isPending: dispatchPending } =
     usePostDispatchProducts()
 
@@ -19,7 +19,7 @@ export const useProductOrders = () => {
       toast.success('Order dispatched successfully!')
     } catch (error) {
       if (isAxiosError(error)) {
-        toast.error(error.message)        
+        toast.error(error.message)
       }
       toast.error('Something went wrong! Try again later')
     }
@@ -43,6 +43,7 @@ export const useProductOrders = () => {
     handleDispatchOrder,
     handleCancelOrder,
     statusPending,
-    dispatchPending
+    dispatchPending,
+    productMetaData: data?.meta
   }
 }

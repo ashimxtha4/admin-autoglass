@@ -10,20 +10,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { usePaginationPageChange } from '@/hooks/pagination.hook'
 
 const GetVehicleModel = () => {
     const { data: vehicleModelList, isLoading } = useGetVehicleModelList()
 
-    const updateQueryParams = (key: string, value: string) => {
-        const params = new URLSearchParams(window.location.search)
-        params.set(key, value)
-        const newUrl = `${window.location.pathname}?${params.toString()}`
-        window.history.pushState({}, '', newUrl)
-    }
-
-    const handlePageChange = (page: number) => {
-        updateQueryParams('page', page.toString())
-    }
+    const { handlePageChange } = usePaginationPageChange()
 
     return (
         <>

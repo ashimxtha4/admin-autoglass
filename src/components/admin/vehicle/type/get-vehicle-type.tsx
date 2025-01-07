@@ -3,20 +3,13 @@ import { useGetVehicleTypeList } from '@/services/api/api-service/admin/vehicle/
 import AutoGlassPagination from '@/utils/autoglass-pagination'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { usePaginationPageChange } from '@/hooks/pagination.hook'
 
 const GetVehicleType = () => {
     const { data: vehicleTypeList, isLoading } = useGetVehicleTypeList()
 
-    const updateQueryParams = (key: string, value: string) => {
-        const params = new URLSearchParams(window.location.search)
-        params.set(key, value)
-        const newUrl = `${window.location.pathname}?${params.toString()}`
-        window.history.pushState({}, '', newUrl)
-    }
+    const { handlePageChange } = usePaginationPageChange()
 
-    const handlePageChange = (page: number) => {
-        updateQueryParams('page', page.toString())
-    }
     return (
         <>
             {isLoading && <LoadingSpinner />}

@@ -7,13 +7,13 @@ export const SIDEBAR_MENU_ITEMS = [
     title: 'Quote',
     subMenu: [{ href: '?ref=quote-list', label: 'Quote List' }]
   },
-  {
-    title: 'Glass Type',
-    subMenu: [
-      { href: '?ref=add-glass-type', label: 'Add Glass Type' },
-      { href: '?ref=glass-type-list', label: 'Glass Type List' }
-    ]
-  },
+  // {
+  //   title: 'Glass Type',
+  //   subMenu: [
+  //     { href: '?ref=add-glass-type', label: 'Add Glass Type' },
+  //     { href: '?ref=glass-type-list', label: 'Glass Type List' }
+  //   ]
+  // },
   {
     title: 'Product',
     subMenu: [

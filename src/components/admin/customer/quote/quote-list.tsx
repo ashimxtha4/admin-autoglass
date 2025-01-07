@@ -1,6 +1,6 @@
+import React from 'react'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import { useQuoteInquiry } from '@/hooks/admin/quote/inquiry-quote'
-import React from 'react'
 import QuoteCard from './quote-card'
 
 const QuoteList = () => {
