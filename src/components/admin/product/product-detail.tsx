@@ -5,6 +5,8 @@ import { cn } from '@/lib/utils'
 import { DEFAULT_IMAGE } from '@/utils/default-image-url'
 import { Card } from '@/components/ui/card'
 import { useGetProductDetails } from '@/services/api/api-service/admin/product/product-detail'
+import { baseUrl } from '@/utils/base-url'
+import BackButton from '@/utils/back-button'
 
 const ProductDetail = () => {
     const [selectedImageIndex, setSelectedImageIndex] = useState(0)
@@ -15,6 +17,10 @@ const ProductDetail = () => {
     return (
         <section className='container mx-auto p-6'>
             {isLoading && <LoadingSpinner />}
+            <div className='flex justify-start items-center gap-2 mb-4'>
+                <BackButton />
+                <h2 className='text-2xl font-bold text-center'>Product Detail</h2>
+            </div>
 
             <Card className='mb-10 flex flex-col items-start rounded-3xl bg-white p-6 shadow-xl md:flex-row md:space-x-10'>
                 <div className='flex max-w-[450px] flex-col items-center md:items-start'>
@@ -24,7 +30,7 @@ const ProductDetail = () => {
                         <Image
                             src={
                                 productImages?.length
-                                    ? productImages[selectedImageIndex].image
+                                    ? baseUrl + productImages[selectedImageIndex].image
                                     : DEFAULT_IMAGE
                             }
                             loading='lazy'
@@ -40,7 +46,7 @@ const ProductDetail = () => {
                             <Image
                                 key={index}
                                 loading='lazy'
-                                src={image.image || DEFAULT_IMAGE}
+                                src={baseUrl + image.image || DEFAULT_IMAGE}
                                 alt={`Product ${image.id}`}
                                 width={64}
                                 height={64}

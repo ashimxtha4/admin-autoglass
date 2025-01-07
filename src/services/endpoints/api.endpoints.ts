@@ -33,7 +33,7 @@ export const api = {
     customer: {
       quote: {
         list: {
-          get: '/admin/customer/quotes'
+          get: (page: number) => `/admin/customer/quotes?page=${page}`
         },
         detail: {
           get: (id: number) => `/admin/customer/quotes/${id}`
