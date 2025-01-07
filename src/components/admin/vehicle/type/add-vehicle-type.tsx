@@ -72,7 +72,7 @@ const AddVehicleType = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className='max-w-lg mx-auto space-y-6 bg-white p-6 rounded-lg shadow-lg'
         >
-          <h2 className='text-2xl font-bold text-center text-green-700 mb-6'>
+          <h2 className='text-2xl font-bold text-center text-primary-main mb-6'>
             Add Vehicle Type
           </h2>
 
@@ -81,7 +81,7 @@ const AddVehicleType = () => {
             name='name'
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-gray-700 font-semibold'>
+                <FormLabel className='text-primary-text font-semibold'>
                   Vehicle Type/Body
                 </FormLabel>
                 <FormControl>
@@ -89,7 +89,7 @@ const AddVehicleType = () => {
                     placeholder='Enter vehicle type'
                     type='text'
                     {...field}
-                    className='mt-2 border-gray-300 focus:border-green-700 focus:ring-green-700 rounded-md'
+                    className='mt-2 border-gray-300 focus:border-primary-main focus:ring-primary-main rounded-md'
                   />
                 </FormControl>
                 <FormMessage />
@@ -102,14 +102,14 @@ const AddVehicleType = () => {
             name='image'
             render={() => (
               <FormItem>
-                <FormLabel className='text-gray-700 font-semibold'>
+                <FormLabel className='text-primary-text font-semibold'>
                   Upload Vehicle Image
                 </FormLabel>
                 <FormControl>
                   <Input
                     type='file'
                     onChange={e => handleFileChange(e)}
-                    className='mt-2 border-gray-300 focus:border-green-700 focus:ring-green-700 rounded-md'
+                    className='mt-2 border-gray-300 focus:border-primary-main focus:ring-primary-main rounded-md'
                   />
                 </FormControl>
                 <FormMessage />
@@ -122,7 +122,7 @@ const AddVehicleType = () => {
               type='submit'
               variant='default'
               className={cn(
-                'bg-green-700 hover:bg-green-800 text-white text-lg font-semibold py-3 px-6 rounded-md transition-all duration-200',
+                'bg-primary-main hover:bg-primary-main text-white text-lg font-normal py-3 px-6 rounded-full transition-all duration-200',
                 isPending && 'cursor-not-allowed opacity-50'
               )}
               disabled={isPending}

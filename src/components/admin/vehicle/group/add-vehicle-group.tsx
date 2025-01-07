@@ -54,7 +54,7 @@ const AddVehicleGroup = () => {
                     onSubmit={form.handleSubmit(onSubmit)}
                     className='max-w-lg mx-auto space-y-6 bg-white p-8 rounded-lg shadow-lg'
                 >
-                    <h2 className='text-2xl font-bold text-center text-green-700 mb-6'>
+                    <h2 className='text-2xl font-bold text-center text-primary-main mb-6'>
                         Add Vehicle Group
                     </h2>
 
@@ -70,7 +70,7 @@ const AddVehicleGroup = () => {
                                     <Input
                                         placeholder='Enter vehicle group'
                                         {...field}
-                                        className='mt-2 border-gray-300 focus:border-green-700 focus:ring-green-700 rounded-md'
+                                        className='mt-2 border-gray-300 focus:border-primary-main focus:ring-primary-main rounded-md'
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -83,7 +83,7 @@ const AddVehicleGroup = () => {
                             type='submit'
                             variant='default'
                             className={cn(
-                                'bg-green-700 hover:bg-green-800 text-white text-lg font-semibold py-3 px-6 rounded-md transition-all duration-200',
+                                'bg-primary-main hover:bg-primary-main text-white text-lg font-normal py-3 px-6 rounded-full transition-all duration-200',
                                 isPending && 'cursor-not-allowed opacity-50'
                             )}
                             disabled={isPending}

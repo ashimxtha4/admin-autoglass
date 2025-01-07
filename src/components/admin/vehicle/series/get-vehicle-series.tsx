@@ -26,7 +26,7 @@ const GetVehicleSeries = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        vehicleSeriesList?.data?.data.map((vehicleMake, index) => (
+                        vehicleSeriesList?.data?.data?.length ? vehicleSeriesList.data.data.map((vehicleMake, index) => (
                             <TableRow key={index}>
                                 <TableCell>{vehicleMake.name}</TableCell>
                                 <TableCell>{vehicleMake.vechicle_model}</TableCell>
@@ -34,7 +34,7 @@ const GetVehicleSeries = () => {
                                 <TableCell>{vehicleMake.start_date ?? 'N/A'}</TableCell>
                                 <TableCell>{vehicleMake.end_date ?? 'N/A'}</TableCell>
                             </TableRow>
-                        ))
+                        )) : <>No Vehicle Series Found</>
                     }
                 </TableBody>
             </Table>

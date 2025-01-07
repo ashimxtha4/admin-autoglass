@@ -53,13 +53,13 @@ const AddVehicleModel = () => {
         })()
     }, [mutateVehicleMake]);
 
-    const vehicleMake = form.watch('vehicle_brand_id');
+    const vehicleMake = form.getValues('vehicle_brand_id');
 
     useEffect(() => {
         (async () => {
             await mutateVehicleType({ vehicle_brand_id: parseInt(vehicleMake) });
         })()
-    }, [mutateVehicleType, vehicleMake]);
+    }, [mutateVehicleType, !!vehicleMake]);
 
     const onSubmit = async (data: TvehicleModelSchemaProps) => {
         try {

@@ -29,12 +29,12 @@ const GetVehicleGroup = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        vehicleMakeGroup?.data?.data.map((vehicleMake, index) => (
+                        vehicleMakeGroup?.data?.data?.length ? vehicleMakeGroup.data.data.map((vehicleMake, index) => (
                             <TableRow key={index}>
                                 <TableCell>{vehicleMake.name}</TableCell>
                                 <TableCell>{vehicleMake.status}</TableCell>
                             </TableRow>
-                        ))
+                        )) : <>No Vehicle Group Found</>
                     }
                 </TableBody>
             </Table>

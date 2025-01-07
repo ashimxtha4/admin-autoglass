@@ -23,12 +23,12 @@ const GetVehicleType = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        vehicleTypeList?.data?.data.map((vehicleMake, index) => (
+                        vehicleTypeList?.data?.data?.length ? vehicleTypeList.data.data.map((vehicleMake, index) => (
                             <TableRow key={index}>
                                 <TableCell>{vehicleMake.name}</TableCell>
                                 <TableCell>{vehicleMake.status}</TableCell>
                             </TableRow>
-                        ))
+                        )) : <>No Vehicle Type Found</>
                     }
                 </TableBody>
             </Table>
