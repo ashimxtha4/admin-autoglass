@@ -18,17 +18,18 @@ export interface ICustomerOrdersProps {
 
 const getCustomerOrders = async (page: number) => {
   try {
-    const response = await httpClient.get<
-      IGenericResponse<ICustomerOrdersProps[]>
-    >(api.admin.customer.orders.product.get(page))
+    const response = await httpClient.get<IGenericResponse<ICustomerOrdersProps[]>>(
+      api.admin.customer.orders.product.get(page)
+    )
     return response.data
   } catch (error) {
     if (isAxiosError(error)) {
-      if (error.status === 401) {
+      if (error.response?.status === 401) {
         localStorage.removeItem('token')
         window.location.href = '/login'
       }
     }
+    throw error
   }
 }
 
@@ -37,6 +38,7 @@ export const useGetCustomerOrders = () => {
   const page = parseInt(searchParams?.get('page') || '1')
   return useQuery({
     queryKey: [api.admin.customer.orders.product.get, page],
-    queryFn: () => getCustomerOrders(page)
+    queryFn: () => getCustomerOrders(page),
+    select: data => data
   })
 }
