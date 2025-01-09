@@ -1,82 +1,38 @@
+import { usePatchEditProduct } from '@/services/api/api-service/admin/product/edit-product'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { addProductSchema, TAddProductSchemaProps } from './add-product.hooks'
 import { zodResolver } from '@hookform/resolvers/zod'
-import toast from 'react-hot-toast'
-import { isAxiosError } from 'axios'
-import { z } from 'zod'
-import { usePostAddProduct } from '@/services/api/api-service/admin/product/add-product'
 import { useGetVehicleMake } from '@/services/api/api-service/vehicle/vehicle-make'
 import { useGetVehicleModel } from '@/services/api/api-service/vehicle/vehicle-model'
 import { useGetVehicleGroup } from '@/services/api/api-service/vehicle/vehicle-group'
 import { useGetVehicleSeries } from '@/services/api/api-service/vehicle/vehicle-series'
 import { useGetVehicleBody } from '@/services/api/api-service/vehicle/vehicle-body'
+import toast from 'react-hot-toast'
+import { isAxiosError } from 'axios'
+import { useGetProductDetails } from '@/services/api/api-service/admin/product/product-detail'
 
-export const addProductSchema = z.object({
-  name: z.string({ required_error: 'Please enter the product name.' }),
-  description: z.string({
-    required_error: 'Please enter the product description.'
-  }),
-  invoice_description: z.string({
-    required_error: 'Please enter the invoice description.'
-  }),
-  sku: z.string({ required_error: 'Please enter the SKU.' }),
-  price: z.string({ required_error: 'Please enter the price.' }),
-  status: z.enum(['enabled', 'disabled'], {
-    required_error: 'Please select the status.'
-  }),
-  syd_stock: z.string({ required_error: 'Please choose stock.' }),
-  mel_stock: z.string({ required_error: 'Please choose stock.' }),
-  vehicle_brand_id: z.string({
-    required_error: 'Please select the vehicle brand.'
-  }),
-  vehicle_type_id: z.string({
-    required_error: 'Please select the vehicle type.'
-  }),
-  vehicle_position_id: z.string({
-    required_error: 'Please select the vehicle position.'
-  }),
-  vehicle_model_id: z.string().optional(),
-  vehicle_series_id: z.string().optional(),
-  size: z.string().optional(),
-  color: z.string().optional(),
-  image: z
-    .array(z.any())
-    .refine(
-      files =>
-        files.every(
-          file =>
-            (file.size < 5000000 && file.type.includes('.jpeg')) ||
-            file.type.includes('.png') ||
-            file.type.includes('.jpg')
-        ),
-      'Please upload a valid image file. (Accepted formats: .jpeg, .png, .jpg)'
-    )
-    .optional()
-})
-
-export type TAddProductSchemaProps = z.infer<typeof addProductSchema>
-
-export const statusOptions = [
-  { label: 'Enabled', value: 'enabled' },
-  { label: 'Disabled', value: 'disabled' }
-]
-
-export const productStock = [
-  { label: 'Yes', value: '1' },
-  { label: 'No', value: '0' }
-]
-
-export const useAddProduct = () => {
+export const useEditProduct = () => {
   const router = useRouter()
   const [modelArray, setModelArray] = useState<
     string[] | number[] | undefined
   >()
 
-  const { mutateAsync, isPending } = usePostAddProduct()
+  const searchParam = useSearchParams()
+  const id = parseInt(searchParam.get('id') || '0')
+
+  const { data } = useGetProductDetails()
+
+  const { mutateAsync, isPending } = usePatchEditProduct()
 
   const form = useForm<Partial<TAddProductSchemaProps>>({
-    resolver: zodResolver(addProductSchema)
+    resolver: zodResolver(addProductSchema),
+    defaultValues: {
+      status: 'enabled',
+      syd_stock: '1',
+      mel_stock: '1'
+    }
   })
 
   const { data: vehicleMakeData, mutateAsync: mutateVehicleMake } =
@@ -162,10 +118,39 @@ export const useAddProduct = () => {
     mutateVehicleGroup
   ])
 
+  useEffect(() => {
+    if (data?.data) {
+      form.setValue('name', data.data.name)
+      form.setValue('description', data.data.description)
+      form.setValue('invoice_description', data.data.invoice_description)
+      form.setValue('color', data.data.color)
+      form.setValue('mel_stock', data.data.mel_stock === 1 ? '1' : '0')
+      form.setValue('syd_stock', data.data.syd_stock === 1 ? '1' : '0')
+      form.setValue('price', data.data.price)
+      form.setValue('size', data.data.size)
+      form.setValue('sku', data.data.sku)
+      form.setValue(
+        'status',
+        data.data.status === 'ENABLED' ? 'enabled' : 'disabled'
+      )
+      form.setValue('vehicle_brand_id', data.data?.vehicle_brand_id?.toString())
+      form.setValue('vehicle_model_id', data.data?.vehicle_model_id?.toString())
+      form.setValue(
+        'vehicle_position_id',
+        data.data?.vehicle_position_id?.toString()
+      )
+      form.setValue(
+        'vehicle_series_id',
+        data.data?.vehicle_series_id?.toString()
+      )
+      form.setValue('vehicle_type_id', data.data?.vehicle_type_id?.toString())
+    }
+  }, [data])
+
   const onSubmit = async (data: Partial<TAddProductSchemaProps>) => {
     try {
-      await mutateAsync(data)
-      toast.success('Product added successfully!')
+      await mutateAsync({ id, data })
+      toast.success('Product edited successfully!')
       form.reset()
     } catch (error) {
       if (isAxiosError(error)) {

@@ -8,12 +8,29 @@ import { useSearchParams } from 'next/navigation'
 export interface ICustomerOrdersProps {
   id: number
   customer_id: number
+  shipping_id: string
+  tracking_id: string
   product_id: number
   product_name: string
   product_price: string
   product_sku: string
+  stock: Stock
   product_image: string
   status: string
+  customer: Customer
+}
+
+export interface Stock {
+  syd: number
+  mel: number
+}
+
+export interface Customer {
+  id: number
+  name: string
+  email: string
+  phone: string
+  address: string
 }
 
 const getCustomerOrders = async (page: number) => {

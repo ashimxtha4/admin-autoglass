@@ -16,6 +16,7 @@ import defaultImage from '@/assets/default.png'
 import { baseUrl } from '@/utils/base-url'
 import { FaEye, FaEdit } from "react-icons/fa";
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const ProductList = () => {
   const router = useRouter()
@@ -63,22 +64,24 @@ const ProductList = () => {
                   <TableCell title='product status'>{product.status ?? 'N/A'}</TableCell>
                   <TableCell>
                     <div className='flex w-full gap-1 justify-center'>
-                      <div
-                        onClick={() => { router.push('?ref=product-details&id=' + product.id) }}
+                      <Link
+                        href={'?ref=product-details&id=' + product.id}
                         className='bg-yellow-600 grid place-items-center px-2 py-1'>
                         <FaEye
                           size={18}
                           className='text-white bg-yellow-600 cursor-pointer'
                           title='View'
                         />
-                      </div>
-                      <div className='bg-blue-600 grid place-items-center px-2 py-1'>
+                      </Link>
+                      <Link
+                        href={'?ref=edit-product&id=' + product.id}
+                        className='bg-blue-600 grid place-items-center px-2 py-1'>
                         <FaEdit
                           size={18}
                           className='bg-blue-600 fill-white cursor-pointer'
                           title='Edit'
                         />
-                      </div>
+                      </Link>
                     </div>
                   </TableCell>
                 </TableRow>

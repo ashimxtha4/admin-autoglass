@@ -1,5 +1,6 @@
-import { useSearchParams } from 'next/navigation'
 import React, { Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { LoadingSpinner } from '../ui/loading-spinner'
 import AddProduct from './product/add-product'
 import ImportProducts from './product/import-products'
 import ProductList from './product/product-list'
@@ -8,13 +9,13 @@ import QuoteList from './customer/quote/quote-list'
 import ImportProduct from './product/import-products'
 import AddGlassType from './glass-type/add-glass-type'
 import ListGlassType from './glass-type/list-glass.type'
-import { LoadingSpinner } from '../ui/loading-spinner'
 import ProductDetail from './product/product-detail'
 import VehicleMake from './vehicle/make/vehicle-make'
 import VehicleModel from './vehicle/model/vehicle-model'
 import VehicleSeries from './vehicle/series/vehicle-series'
 import VehicleGroup from './vehicle/group/vehicle-group'
 import VehicleType from './vehicle/type/vehicle-type'
+import EditProduct from './product/edit-product'
 
 const SideBarContent = () => {
   const searchParams = useSearchParams()
@@ -45,6 +46,8 @@ const SideBarContent = () => {
       return <ProductOrders />
     case 'product-details':
       return <ProductDetail />
+    case 'edit-product':
+      return <EditProduct />
     case 'import-product':
       return <ImportProduct />
     case 'quote-list':

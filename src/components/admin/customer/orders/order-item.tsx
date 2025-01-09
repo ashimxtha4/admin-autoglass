@@ -2,55 +2,45 @@ import React from 'react'
 import Image from 'next/image'
 import { ICustomerOrdersProps } from '@/services/api/api-service/admin/customer/orders/product-orders'
 import defaultImage from '@/assets/default.png'
-import ButtonLoader from '@/utils/button-loader'
+import { baseUrl } from '@/utils/base-url'
 
 interface IOrderItemProps {
   order: ICustomerOrdersProps
-  handleDispatchOrder: (cart_id: number) => Promise<void>
-  handleCancelOrder: (cart_id: number) => Promise<void>
-  statusPending: boolean
-  dispatchPending: boolean
+}
+
+const OrderText = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <p className='mb-1 text-primary-text'>{children}</p>
+  )
 }
 
 const OrderItem = ({
-  order,
-  dispatchPending,
-  handleCancelOrder,
-  handleDispatchOrder,
-  statusPending
+  order
 }: IOrderItemProps) => {
   return (
     <>
-      <div className='flex flex-col bg-white items-center rounded-lg border p-4 text-center shadow transition hover:shadow-lg'>
+      <div className='flex flex-col text-start items-start rounded-lg p-4 hover:shadow-lg'>
         <Image
-          src={defaultImage || order.product_image}
+          src={baseUrl + order.product_image || defaultImage}
           alt={order.product_name}
+          width={100}
+          height={100}
           className='mb-4 h-fit w-full rounded-md object-cover'
         />
         <h3 className='mb-2 text-lg font-semibold'>{order.product_name}</h3>
-        <p className='mb-1 text-gray-600'>SKU: {order.product_sku}</p>
-        <p className='mb-1 text-gray-600'>Price: Rs. {order.product_price}</p>
+        <OrderText>SKU: {order.product_sku}</OrderText>
+        <OrderText>Price:  AUS$ {order.product_price}</OrderText>
+        <OrderText>Ordered By: {order.customer.name}</OrderText>
+        <OrderText>Email: {order.customer.email}</OrderText>
+        <OrderText>Phone: {order.customer.phone}</OrderText>
+        <OrderText>Address: {order.customer.address}</OrderText>
+        <OrderText>Shipping ID: {order.shipping_id}</OrderText>
+        <OrderText>Tracking ID: {order.tracking_id}</OrderText>
         <p
-          className={`mb-4 text-sm font-medium ${order.status === 'Available' ? 'text-green-500' : 'text-red-500'}`}
+          className={`mb-4 text-sm font-medium ${order.status === 'Ordered' ? 'text-green-500' : 'text-red-500'}`}
         >
           Status: {order.status}
         </p>
-        <div className='mt-2 flex w-full justify-around'>
-          <button
-            disabled={dispatchPending}
-            onClick={() => handleDispatchOrder(order.id)}
-            className='rounded-md bg-blue-500 px-3 py-1 text-white transition hover:bg-blue-600'
-          >
-            {dispatchPending ? <ButtonLoader /> : 'Dispatch'}
-          </button>
-          <button
-            disabled={statusPending}
-            onClick={() => handleCancelOrder(order.id)}
-            className='rounded-md bg-red-500 px-3 py-1 text-white transition hover:bg-red-600'
-          >
-            {statusPending ? <ButtonLoader /> : 'Cancel'}
-          </button>
-        </div>
       </div>
     </>
   )

@@ -10,27 +10,32 @@ import {
 } from "@/components/ui/table"
 import Image from 'next/image'
 import defaultImage from '@/assets/default.png'
-import ButtonLoader from '@/utils/button-loader'
 import AutoGlassPagination from '@/utils/autoglass-pagination'
 import { usePaginationPageChange } from '@/hooks/pagination.hook'
 import { baseUrl } from '@/utils/base-url'
 import { cn } from '@/lib/utils'
+import ProductStatus from './product-status'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import OrderItem from './order-item'
+
 
 const ProductOrders = () => {
   const {
     ordersLoading,
     productOrders,
-    dispatchPending,
-    statusPending,
-    handleCancelOrder,
-    handleDispatchOrder,
-    productMetaData } = useProductOrders()
+    productMetaData,
+    form,
+    onSubmit,
+    orderId,
+    setOrderId,
+  } = useProductOrders()
 
   const { handlePageChange } = usePaginationPageChange()
 
   return (
     <>
       {ordersLoading && <LoadingSpinner />}
+      <h2 className='mb-4 text-2xl font-bold'>All Orders</h2>
       <Table className='bg-white rounded-2xl p-4'>
         <TableHeader>
           <TableRow>
@@ -39,9 +44,9 @@ const ProductOrders = () => {
             <TableHead>SKU</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>Ordered By</TableHead>
-            <TableHead>Email</TableHead>
             <TableHead>Address</TableHead>
-            <TableHead>Phone</TableHead>
+            <TableHead className='text-nowrap'>Shipping ID</TableHead>
+            <TableHead>Tracking ID</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
@@ -55,17 +60,17 @@ const ProductOrders = () => {
                   alt={order.product_name}
                   width={100}
                   height={70}
-                  className='h-[70px] w-full object-cover'
+                  className='h-[50px] w-full object-cover'
                   title='product image'
                 />
               </TableCell>
               <TableCell title='product name'>{order.product_name ?? 'N/A'}</TableCell>
               <TableCell title='product sku'>{order.product_sku ?? 'N/A'}</TableCell>
               <TableCell title='product price'>{order.product_price ?? 'N/A'}</TableCell>
-              <TableCell title='customer name'>Customer name</TableCell>
-              <TableCell title='customer email'>Email here</TableCell>
-              <TableCell title='customer address'>Address here</TableCell>
-              <TableCell title='customer phone'>Phone here</TableCell>
+              <TableCell title='customer name'>{order.customer.name ?? 'N/A'}</TableCell>
+              <TableCell title='customer address'>{order.customer.address ?? 'N/A'}</TableCell>
+              <TableCell title='customer phone'>{order.shipping_id ?? 'N/A'}</TableCell>
+              <TableCell title='customer email'>{order.tracking_id ?? 'N/A'}</TableCell>
               <TableCell title='order status'>
                 <span
                   className={cn('px-2 py-1 text-white rounded-sm',
@@ -77,7 +82,27 @@ const ProductOrders = () => {
               </TableCell>
               <TableCell>
                 <div className='flex w-full gap-1 justify-center'>
-                  <button
+                  <ProductStatus
+                    orderId={order.id}
+                    form={form}
+                    onSubmit={onSubmit}
+                    setOrderId={setOrderId}
+                    openProductStatus={order.id === orderId}
+                  />
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button
+                        title='order detail'
+                        className='rounded-full bg-primary-main px-3 py-1 text-white transition'
+                      >
+                        Detail
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent className='max-h-[500px] overflow-y-auto'>
+                      <OrderItem order={order} />
+                    </DialogContent>
+                  </Dialog>
+                  {/* <button
                     title='dispatch order'
                     disabled={dispatchPending || order.status === 'Dispatched' || order.status === 'Cancelled' || order.status === 'Delivered' || order.status === 'Returned'}
                     onClick={() => handleDispatchOrder(order.id)}
@@ -92,7 +117,7 @@ const ProductOrders = () => {
                     className='rounded-full bg-red-500 px-3 py-1 text-white transition disabled:cursor-not-allowed disabled:bg-red-300'
                   >
                     {statusPending ? <ButtonLoader /> : 'Cancel'}
-                  </button>
+                  </button> */}
                 </div>
               </TableCell>
             </TableRow>

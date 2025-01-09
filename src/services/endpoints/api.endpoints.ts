@@ -67,7 +67,7 @@ export const api = {
       detail: {
         get: (id: number) => `/product/${id}`
       },
-      update: {
+      edit: {
         patch: (id: number) => `/product/${id}`
       }
     },
