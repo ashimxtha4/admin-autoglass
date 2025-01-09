@@ -21,8 +21,8 @@ import { usePostImportProduct } from '@/services/api/api-service/admin/product/i
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 const checkFileType = (file: File) => {
-  const fileType = file.type.split('/').pop();
-  return fileType === 'csv' || fileType === 'xlsx';
+  const fileType = file.type;
+  return fileType === 'text/csv' || fileType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 };
 
 const importProductSchema = z.object({
