@@ -14,6 +14,7 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import QuoteReplyModal from './quote-reply-modal';
 import QuoteCard from './quote-card';
 import AutoGlassPagination from '@/utils/autoglass-pagination';
+import NotFoundMessage from '../../vehicle/utils/not-found-message';
 
 const QuoteList = () => {
 
@@ -45,8 +46,8 @@ const QuoteList = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {
-            quoteList?.map((quote, index) => (
+          {quoteList?.length ?
+            quoteList.map((quote, index) => (
               <TableRow key={index}>
                 <TableCell title='quote name'>{quote.name ?? 'N/A'}</TableCell>
                 <TableCell title='quote phone'>{quote.phone ?? 'N/A'}</TableCell>
@@ -88,7 +89,7 @@ const QuoteList = () => {
                   </div>
                 </TableCell>
               </TableRow>
-            ))
+            )) : <NotFoundMessage>No Quotes Found</NotFoundMessage>
           }
         </TableBody>
       </Table>

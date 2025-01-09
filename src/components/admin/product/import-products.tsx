@@ -22,7 +22,8 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 const checkFileType = (file: File) => {
   const fileType = file.type;
-  return fileType === 'text/csv' || fileType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+  // return fileType === 'text/csv' || fileType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'; for both csv and xlsx
+  return fileType === 'text/csv'
 };
 
 const importProductSchema = z.object({
@@ -30,7 +31,7 @@ const importProductSchema = z.object({
     .any()
     .refine((file) => file instanceof File, { message: 'File is required' })
     .refine((file) => checkFileType(file), {
-      message: 'Only .csv or .xlsx formats are supported.',
+      message: 'Only .csv format is supported.',
     }),
 });
 

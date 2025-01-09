@@ -367,11 +367,11 @@ const AddProduct = () => {
               type='submit'
               variant='default'
               className={cn(
-                'bg-primary-main text-lg font-semibold text-white hover:bg-primary-dark md:text-xl',
+                'bg-primary-main rounded-full text-xl font-normal text-white hover:bg-primary-main',
                 isPending && 'cursor-not-allowed'
               )}
               disabled={isPending}
-            >
+            > 
               {form.formState.isSubmitting ? <ButtonLoader /> : 'Add Product'}
             </Button>
           </div>
