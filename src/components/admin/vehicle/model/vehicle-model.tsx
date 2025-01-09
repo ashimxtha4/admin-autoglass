@@ -1,31 +1,24 @@
 import React from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { cn } from '@/lib/utils';
 import GetVehicleModel from './get-vehicle-model';
 import AddVehicleModel from './add-vehicle-model';
+import { useNavigation } from '../utils/vehicle-navigation';
+import TabButtonWrapper from '../utils/tab-button-wrapper';
+import TabButton from '../utils/tab-button';
 
 const VehicleModel = () => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  const { searchParams, handleNavigation } = useNavigation()
 
-  const handleAddVehicleMake = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete('get');
-    router.push(`?${params.toString()}`);
-  };
-
-  const handleGetVehicleMake = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('get', 'true');
-    router.push(`?${params.toString()}`);
-  };
 
   return (
     <>
-      <aside className='grid grid-cols-2 my-2 w-full justify-between bg-white p-2 rounded-full items-center'>
-        <button onClick={handleAddVehicleMake} className={cn(!searchParams.get('get') && 'text-lg font-medium', 'text-primary-text')}>Add Vehicle Model</button>
-        <button onClick={handleGetVehicleMake} className={cn(searchParams.get('get') && 'text-lg font-medium', 'text-primary-text')}>Get Vehicle Model</button>
-      </aside>
+      <TabButtonWrapper>
+        <TabButton isActive={!searchParams.get('get')} onClick={() => handleNavigation(false)}>
+          Add Vehicle Model
+        </TabButton>
+        <TabButton isActive={!!searchParams.get('get')} onClick={() => handleNavigation(true)}>
+          Get Vehicle Model
+        </TabButton>
+      </TabButtonWrapper>
       {
         searchParams.get('get') ? <GetVehicleModel /> : <AddVehicleModel />
       }

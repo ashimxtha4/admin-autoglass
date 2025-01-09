@@ -70,7 +70,7 @@ const AddVehicleType = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className='max-w-lg mx-auto space-y-6 bg-white p-6 rounded-lg shadow-lg'
+          className='w-full bg-white p-4 rounded-2xl shadow-lg'
         >
           <h2 className='text-2xl font-bold text-center text-primary-main mb-6'>
             Add Vehicle Type

@@ -4,6 +4,7 @@ import AutoGlassPagination from '@/utils/autoglass-pagination'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { usePaginationPageChange } from '@/hooks/pagination.hook'
+import NotFoundMessage from '../utils/not-found-message'
 
 const GetVehicleType = () => {
     const { data: vehicleTypeList, isLoading } = useGetVehicleTypeList()
@@ -28,7 +29,7 @@ const GetVehicleType = () => {
                                 <TableCell>{vehicleMake.name}</TableCell>
                                 <TableCell>{vehicleMake.status}</TableCell>
                             </TableRow>
-                        )) : <>No Vehicle Type Found</>
+                        )) : <NotFoundMessage>No Vehicle Type Found</NotFoundMessage>
                     }
                 </TableBody>
             </Table>

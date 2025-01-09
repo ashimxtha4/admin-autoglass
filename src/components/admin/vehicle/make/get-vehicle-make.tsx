@@ -11,6 +11,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { usePaginationPageChange } from '@/hooks/pagination.hook'
+import NotFoundMessage from '../utils/not-found-message'
 
 const GetVehicleMake = () => {
     const { data: vehicleMakeList, isLoading } = useGetVehicleMakeList()
@@ -34,7 +35,7 @@ const GetVehicleMake = () => {
                                 <TableCell>{vehicleMake.name}</TableCell>
                                 <TableCell>{vehicleMake.status}</TableCell>
                             </TableRow>
-                        )) : <>No Vehicle Make Found</>
+                        )) : <NotFoundMessage>No Vehicle Make Found</NotFoundMessage>
                     }
                 </TableBody>
             </Table>

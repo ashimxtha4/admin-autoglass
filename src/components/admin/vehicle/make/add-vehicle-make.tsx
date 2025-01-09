@@ -52,7 +52,7 @@ const AddVehicleMake = () => {
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className='w-full rounded-2xl border bg-white p-8 shadow-lg'
+                    className='w-full rounded-2xl border bg-white p-4 shadow-lg'
                 >
                     <h2 className='text-2xl font-bold text-center text-primary-main mb-6'>
                         Add Vehicle Make

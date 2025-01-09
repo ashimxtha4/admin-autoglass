@@ -28,21 +28,21 @@ const ProductList = () => {
   return (
     <>
       {isLoading && <LoadingSpinner />}
-      <div className='container mx-auto p-4'>
-        <h2 className='mb-4 text-2xl font-bold'>Product List</h2>
-        <Table className='bg-white rounded-2xl p-4'>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Image</TableHead>
-              <TableHead>Product Name</TableHead>
-              <TableHead>SKU</TableHead>
-              <TableHead>Price</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {
+      <h2 className='mb-4 text-2xl font-bold'>Product List</h2>
+      <Table className='bg-white rounded-2xl p-4'>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Image</TableHead>
+            <TableHead>Product Name</TableHead>
+            <TableHead>SKU</TableHead>
+            <TableHead>Price</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Action</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {
+            products?.data?.length ?
               products?.data?.map((product, index) => (
                 <TableRow key={index}>
                   <TableCell>
@@ -83,18 +83,17 @@ const ProductList = () => {
                     </div>
                   </TableCell>
                 </TableRow>
-              ))
-            }
-          </TableBody>
-        </Table>
+              )) : <>No Products Found</>
+          }
+        </TableBody>
+      </Table>
 
-        <AutoGlassPagination
-          currentPage={products?.meta?.current_page || 1}
-          itemsPerPage={products?.meta?.per_page ?? 15}
-          totalItems={products?.meta?.total ?? 100}
-          onPageChange={handlePageChange}
-        />
-      </div>
+      <AutoGlassPagination
+        currentPage={products?.meta?.current_page || 1}
+        itemsPerPage={products?.meta?.per_page ?? 15}
+        totalItems={products?.meta?.total ?? 100}
+        onPageChange={handlePageChange}
+      />
     </>
   )
 }

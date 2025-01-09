@@ -4,6 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useGetVehicleSeriesList } from '@/services/api/api-service/admin/vehicle/vehicle-series'
 import AutoGlassPagination from '@/utils/autoglass-pagination'
 import { usePaginationPageChange } from '@/hooks/pagination.hook'
+import NotFoundMessage from '../utils/not-found-message'
 
 const GetVehicleSeries = () => {
     const { data: vehicleSeriesList, isLoading } = useGetVehicleSeriesList()
@@ -34,7 +35,7 @@ const GetVehicleSeries = () => {
                                 <TableCell>{vehicleMake.start_date ?? 'N/A'}</TableCell>
                                 <TableCell>{vehicleMake.end_date ?? 'N/A'}</TableCell>
                             </TableRow>
-                        )) : <>No Vehicle Series Found</>
+                        )) : <NotFoundMessage>No Vehicle Series Found</NotFoundMessage>
                     }
                 </TableBody>
             </Table>

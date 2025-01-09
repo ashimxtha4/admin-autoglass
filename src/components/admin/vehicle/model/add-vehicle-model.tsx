@@ -80,7 +80,7 @@ const AddVehicleModel = () => {
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className='rounded-2xl border bg-white p-8 shadow-lg'
+                    className='rounded-2xl border bg-white p-4 shadow-lg'
                 >
                     <h2 className='text-2xl font-bold text-center text-primary-main mb-6'>
                         Add Vehicle Model

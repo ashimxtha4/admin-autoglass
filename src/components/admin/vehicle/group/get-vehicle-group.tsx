@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/table"
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import { usePaginationPageChange } from '@/hooks/pagination.hook'
+import NotFoundMessage from '../utils/not-found-message'
 
 const GetVehicleGroup = () => {
     const { data: vehicleMakeGroup, isLoading } = useGetVehiclePositionList()
@@ -34,7 +35,7 @@ const GetVehicleGroup = () => {
                                 <TableCell>{vehicleMake.name}</TableCell>
                                 <TableCell>{vehicleMake.status}</TableCell>
                             </TableRow>
-                        )) : <>No Vehicle Group Found</>
+                        )) : <NotFoundMessage>No Vehicle Group Found</NotFoundMessage>
                     }
                 </TableBody>
             </Table>
