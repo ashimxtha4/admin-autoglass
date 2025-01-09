@@ -145,7 +145,7 @@ export const useEditProduct = () => {
       )
       form.setValue('vehicle_type_id', data.data?.vehicle_type_id?.toString())
     }
-  }, [data])
+  }, [data, form])
 
   const onSubmit = async (data: Partial<TAddProductSchemaProps>) => {
     try {

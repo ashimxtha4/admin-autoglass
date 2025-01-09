@@ -1,18 +1,19 @@
 import React, { SetStateAction } from 'react'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
-import { ICustomerOrdersProps } from '@/services/api/api-service/admin/customer/orders/product-orders'
 import { UseFormReturn } from 'react-hook-form'
+import { OrderStatusSchema } from '@/hooks/admin/orders/product-orders.hooks'
+import { z } from 'zod'
 
 interface ProductStatusProps {
     orderId: number
     form: UseFormReturn<{
         status: string;
         id?: string | undefined;
-    }, any, undefined>
-    onSubmit: any
+    }>
+    onSubmit: (data: z.infer<typeof OrderStatusSchema>) => Promise<void>
     setOrderId: React.Dispatch<SetStateAction<number | null>>
     openProductStatus: boolean
 }

@@ -15,11 +15,9 @@ import Image from 'next/image'
 import defaultImage from '@/assets/default.png'
 import { baseUrl } from '@/utils/base-url'
 import { FaEye, FaEdit } from "react-icons/fa";
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 const ProductList = () => {
-  const router = useRouter()
 
   const { data: products, isLoading, isError } = useGetAdminProductList()
 

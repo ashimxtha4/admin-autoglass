@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
 
-const OrderStatusSchema = z.object({
+export const OrderStatusSchema = z.object({
   id: z.string().optional(),
   status: z.string({ required_error: 'Order status is required' })
 })
