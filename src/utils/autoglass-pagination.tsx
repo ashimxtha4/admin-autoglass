@@ -4,10 +4,12 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
+  PaginationLink,
   PaginationNext,
   PaginationPrevious
 } from '@/components/ui/pagination'
 import { cn } from '@/lib/utils'
+import { FaEllipsis } from "react-icons/fa6";
 
 interface AutoGlassPaginationProps {
   totalItems: number
@@ -32,12 +34,34 @@ const AutoGlassPagination = ({
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
       onPageChange(page)
-      // Create new URLSearchParams object
       const params = new URLSearchParams(searchParams?.toString())
       params.set('page', page.toString())
-
-      router.push(`${pathname}?${params.toString()}`)
+      router.push(`${pathname}?${params.toString()}`, { scroll: true })
     }
+  }
+
+  const renderPageNumbers = () => {
+    const pageNumbers = []
+
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i)
+      }
+    } else {
+      pageNumbers.push(1, 2)
+      if (currentPage > 3) {
+        pageNumbers.push('...')
+      }
+      if (currentPage > 2 && currentPage < totalPages - 1) {
+        pageNumbers.push(currentPage)
+      }
+      if (currentPage < totalPages - 2) {
+        pageNumbers.push('...')
+      }
+      pageNumbers.push(totalPages)
+    }
+
+    return pageNumbers
   }
 
   return (
@@ -45,7 +69,7 @@ const AutoGlassPagination = ({
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            className={cn(
+            className={cn('text-primary-text',
               currentPage === 1
                 ? 'pointer-events-none opacity-50'
                 : 'cursor-pointer'
@@ -53,24 +77,25 @@ const AutoGlassPagination = ({
             onClick={() => handlePageChange(currentPage - 1)}
           />
         </PaginationItem>
-        {/* {Array.from({ length: totalPages }, (_, index) => {
-          const pageNumber = index + 1
-          return (
-            <PaginationItem key={pageNumber}>
+        {renderPageNumbers().map((page, index) => (
+          <PaginationItem key={index}>
+            {typeof page === 'number' ? (
               <PaginationLink
                 className={cn(
-                  currentPage === pageNumber ? 'active' : undefined
+                  currentPage === page ? 'active cursor-pointer bg-primary-main text-white rounded-full hover:bg-primary-main hover:text-white' : 'cursor-pointer rounded-full text-primary-text'
                 )}
-                onClick={() => handlePageChange(pageNumber)}
+                onClick={() => handlePageChange(page)}
               >
-                {pageNumber}
+                {page}
               </PaginationLink>
-            </PaginationItem>
-          )
-        })} */}
+            ) : (
+              <FaEllipsis size={24} className='px-1 text-primary-text' />
+            )}
+          </PaginationItem>
+        ))}
         <PaginationItem>
           <PaginationNext
-            className={cn(
+            className={cn('text-primary-text',
               currentPage === totalPages
                 ? 'pointer-events-none opacity-50'
                 : 'cursor-pointer'
