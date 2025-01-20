@@ -38,6 +38,10 @@ export const useProductOrders = () => {
           cart_id: dataToSubmit.id as number,
           status: dataToSubmit.status
         })
+        toast.success(`Order ${data.status} successfully!`)
+        setOrderId(null)
+        form.reset()
+        return
       }
       await mutateStatusAsync({
         cart_id: dataToSubmit.id as number,
