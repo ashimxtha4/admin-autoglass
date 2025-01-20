@@ -33,6 +33,12 @@ export const useProductOrders = () => {
       status: data.status
     }
     try {
+      if (dataToSubmit.status === 'Dispatched') {
+        await mutateDispatchAsync({
+          cart_id: dataToSubmit.id as number,
+          status: dataToSubmit.status
+        })
+      }
       await mutateStatusAsync({
         cart_id: dataToSubmit.id as number,
         status: dataToSubmit.status
@@ -83,6 +89,6 @@ export const useProductOrders = () => {
     form,
     orderId,
     setOrderId,
-    onSubmit,
+    onSubmit
   }
 }
