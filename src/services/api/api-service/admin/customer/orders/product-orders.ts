@@ -8,6 +8,7 @@ import { useSearchParams } from 'next/navigation'
 export interface ICustomerOrdersProps {
   id: number
   customer_id: number
+  quantity: number
   shipping_id: string
   tracking_id: string
   product_id: number

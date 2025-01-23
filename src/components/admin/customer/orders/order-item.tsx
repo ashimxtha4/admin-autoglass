@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { ICustomerOrdersProps } from '@/services/api/api-service/admin/customer/orders/product-orders'
 import defaultImage from '@/assets/default.png'
 import { baseUrl } from '@/utils/base-url'
+import { cn } from '@/lib/utils'
 
 interface IOrderItemProps {
   order: ICustomerOrdersProps
@@ -27,20 +28,19 @@ const OrderItem = ({
           height={100}
           className='mb-4 h-fit w-full rounded-md object-cover'
         />
-        <h3 className='mb-2 text-lg font-semibold'>{order.product_name}</h3>
-        <OrderText>SKU: {order.product_sku}</OrderText>
-        <OrderText>Price:  AUS$ {order.product_price}</OrderText>
-        <OrderText>Ordered By: {order.customer.name}</OrderText>
-        <OrderText>Email: {order.customer.email}</OrderText>
-        <OrderText>Phone: {order.customer.phone}</OrderText>
-        <OrderText>Address: {order.customer.address}</OrderText>
-        <OrderText>Shipping ID: {order.shipping_id}</OrderText>
-        <OrderText>Tracking ID: {order.tracking_id}</OrderText>
-        <p
-          className={`mb-4 text-sm font-medium ${order.status === 'Ordered' ? 'text-green-500' : 'text-red-500'}`}
-        >
-          Status: {order.status}
-        </p>
+        <h3 className='mb-2 text-lg font-semibold'>{order.product_name ?? 'N/A'}</h3>
+        <OrderText>SKU: {order.product_sku ?? 'N/A'}</OrderText>
+        <OrderText>Price:  AUS$ {order.product_price ?? 'N/A'}</OrderText>
+        <OrderText>Ordered By: {order.customer.name ?? 'N/A'}</OrderText>
+        <OrderText>Quantity: {order.quantity ?? 'N/A'}</OrderText>
+        <OrderText>Email: {order.customer.email ?? 'N/A'}</OrderText>
+        <OrderText>Phone: {order.customer.phone ?? 'N/A'}</OrderText>
+        <OrderText>Address: {order.customer.address ?? 'N/A'}</OrderText>
+        <OrderText>Shipping ID: {order.shipping_id ?? 'N/A'}</OrderText>
+        <OrderText>Tracking ID: {order.tracking_id ?? 'N/A'}</OrderText>
+        <OrderText>
+          Status: <span className={cn('text-xl rounded-full text-white px-2 py-1', order.status === 'Ordered' ? 'bg-green-500' : 'bg-red-500')}>{order.status}</span>
+        </OrderText>
       </div>
     </>
   )
