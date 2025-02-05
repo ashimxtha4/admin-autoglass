@@ -65,7 +65,7 @@ const AutoGlassPagination = ({
   }
 
   return (
-    <Pagination className={className}>
+    <Pagination className={cn('my-4', className)}>
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
