@@ -28,7 +28,10 @@ const QuoteList = () => {
     openReplyModal,
     replyText,
     setOpenReplyModal,
-    setReplyText } = useQuoteInquiry()
+    setReplyText,
+    handleOpenReplyModal,
+    selectedQuoteId,
+  } = useQuoteInquiry()
 
   return (
     <main className='min-w-fit'>
@@ -84,8 +87,10 @@ const QuoteList = () => {
                       id={quote.id}
                       name={quote.name}
                       email={quote.email}
-                    />
+                      handleOpenReplyModal={() => handleOpenReplyModal(quote.id)}
+                      selectedQuoteId={selectedQuoteId}
 
+                    />
                   </div>
                 </TableCell>
               </TableRow>

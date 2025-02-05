@@ -6,6 +6,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 export const useQuoteInquiry = () => {
+  const [selectedQuoteId, setSelectedQuoteId] = useState<number | null>(null);
   const [openReplyModal, setOpenReplyModal] = useState(false)
   const [replyText, setReplyText] = useState('')
 
@@ -15,8 +16,14 @@ export const useQuoteInquiry = () => {
 
   const handleCancelClick = () => {
     setOpenReplyModal(false)
+    setSelectedQuoteId(null);
     setReplyText('')
   }
+
+  const handleOpenReplyModal = (quoteId: number) => {
+    setSelectedQuoteId(quoteId);
+    setOpenReplyModal(true);
+  };
 
   const handleSendReply = async (id: number, name: string, email: string) => {
     try {
@@ -50,6 +57,10 @@ export const useQuoteInquiry = () => {
     setReplyText,
     handleCancelClick,
     handleSendReply,
-    isPending
+    isPending,
+    selectedQuoteId,
+    setSelectedQuoteId,
+    handleOpenReplyModal,
+
   }
 }
