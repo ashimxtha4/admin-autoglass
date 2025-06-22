@@ -1,3 +1,4 @@
+'use client'
 import React, { Suspense } from "react"
 import { LoadingSpinner } from "@/components/ui/loading-spinner"
 import AdminSidebar from "@/components/admin"

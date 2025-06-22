@@ -7,18 +7,18 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { FaEye } from "react-icons/fa";
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import QuoteReplyModal from './quote-reply-modal';
-import QuoteCard from './quote-card';
-import AutoGlassPagination from '@/utils/autoglass-pagination';
-import NotFoundMessage from '../../vehicle/utils/not-found-message';
+  TableRow
+} from '@/components/ui/table'
+import { FaEye } from 'react-icons/fa'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import QuoteReplyModal from './quote-reply-modal'
+import QuoteCard from './quote-card'
+import AutoGlassPagination from '@/utils/autoglass-pagination'
+import NotFoundMessage from '../../vehicle/utils/not-found-message'
 
 const QuoteList = () => {
-
-  const { isLoading,
+  const {
+    isLoading,
     quoteList,
     quoteMetaData,
     handlePageChange,
@@ -30,13 +30,14 @@ const QuoteList = () => {
     setOpenReplyModal,
     setReplyText,
     handleOpenReplyModal,
-    selectedQuoteId,
+    selectedQuoteId
   } = useQuoteInquiry()
 
   return (
     <main className='min-w-fit'>
+      <h2 className='mb-4 text-2xl font-bold'>Quotes</h2>
       {isLoading && <LoadingSpinner />}
-      <Table className='bg-white rounded-2xl p-4'>
+      <Table className='rounded-2xl bg-white p-4'>
         <TableHeader>
           <TableRow>
             <TableHead>Customer Name</TableHead>
@@ -49,25 +50,36 @@ const QuoteList = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {quoteList?.length ?
+          {quoteList?.length ? (
             quoteList.map((quote, index) => (
               <TableRow key={index}>
                 <TableCell title='quote name'>{quote.name ?? 'N/A'}</TableCell>
-                <TableCell title='quote phone'>{quote.phone ?? 'N/A'}</TableCell>
-                <TableCell title='quote email'>{quote.email ?? 'N/A'}</TableCell>
-                <TableCell title='prefferred type'>{quote.preferred_type ?? 'N/A'}</TableCell>
-                <TableCell title='reply message'>{quote.reply ?? 'N/A'}</TableCell>
-                <TableCell title='quote status'>{quote.status ?? 'N/A'}</TableCell>
+                <TableCell title='quote phone'>
+                  {quote.phone ?? 'N/A'}
+                </TableCell>
+                <TableCell title='quote email'>
+                  {quote.email ?? 'N/A'}
+                </TableCell>
+                <TableCell title='prefferred type'>
+                  {quote.preferred_type ?? 'N/A'}
+                </TableCell>
+                <TableCell title='reply message'>
+                  {quote.reply ?? 'N/A'}
+                </TableCell>
+                <TableCell title='quote status'>
+                  {quote.status ?? 'N/A'}
+                </TableCell>
                 <TableCell>
-                  <div className='flex w-full gap-1 justify-center'>
+                  <div className='flex w-full justify-center gap-1'>
                     <Dialog>
                       <DialogTrigger asChild>
                         <button
                           type='button'
-                          className='bg-yellow-600 grid place-items-center px-2 py-1'>
+                          className='grid place-items-center bg-yellow-600 px-2 py-1'
+                        >
                           <FaEye
                             size={18}
-                            className='text-white bg-yellow-600 cursor-pointer'
+                            className='cursor-pointer bg-yellow-600 text-white'
                             title='View'
                           />
                         </button>
@@ -82,20 +94,25 @@ const QuoteList = () => {
                       replyText={replyText}
                       setReplyText={setReplyText}
                       isPending={isPending}
-                      handleSendReply={() => handleSendReply(quote.id, quote.name, quote.email)}
+                      handleSendReply={() =>
+                        handleSendReply(quote.id, quote.name, quote.email)
+                      }
                       handleCancelClick={handleCancelClick}
                       id={quote.id}
                       name={quote.name}
                       email={quote.email}
-                      handleOpenReplyModal={() => handleOpenReplyModal(quote.id)}
+                      handleOpenReplyModal={() =>
+                        handleOpenReplyModal(quote.id)
+                      }
                       selectedQuoteId={selectedQuoteId}
-
                     />
                   </div>
                 </TableCell>
               </TableRow>
-            )) : <NotFoundMessage>No Quotes Found</NotFoundMessage>
-          }
+            ))
+          ) : (
+            <NotFoundMessage>No Quotes Found</NotFoundMessage>
+          )}
         </TableBody>
       </Table>
       <AutoGlassPagination

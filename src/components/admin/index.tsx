@@ -17,6 +17,7 @@ const OutMenuLink = ({ href, children }: SidebarProps) => (
     href={href}
     className='hover:shadow-xs flex items-center gap-3 rounded-lg px-4 py-2.5 font-semibold text-slate-600 hover:bg-white hover:shadow-slate-300/50 active:bg-white/75 active:text-slate-800 active:shadow-slate-300/10'
   >
+    <span></span>
     {children}
   </Link>
 )
@@ -69,7 +70,8 @@ const AdminSidebar: React.FC = () => {
       <div className='mx-auto flex min-h-screen w-full min-w-[320px] flex-col bg-white lg:ps-64'>
         {/* Sidebar */}
         <nav
-          className={`fixed bottom-0 start-0 top-0 z-50 flex h-full w-80 flex-col overflow-auto bg-slate-100 transition-transform duration-500 ease-out lg:w-64 ${
+          // bg-slate-100
+          className={`fixed bottom-0 start-0 top-0 z-50 flex h-full w-80 flex-col overflow-auto bg-[#d3f2d0] transition-transform duration-500 ease-out lg:w-64 ${
             mobileSidebarOpen
               ? 'translate-x-0'
               : '-translate-x-full lg:translate-x-0'
@@ -118,7 +120,7 @@ const AdminSidebar: React.FC = () => {
 
           <div className='w-full grow space-y-3 p-4'>
             {/* Navigation Links */}
-            {SIDEBAR_MENU_ITEMS.map(({ title, subMenu }, index) =>
+            {SIDEBAR_MENU_ITEMS.map(({ icon, title, subMenu }, index) =>
               // <a
               //   key={text}
               //   href='#'
@@ -130,22 +132,67 @@ const AdminSidebar: React.FC = () => {
               //   <span>{text}</span>
               // </a>
               subMenu?.length == 1 ? (
-                <OutMenuLink key={index} href={subMenu[0].href}>
+                <Link
+                  key={index}
+                  href={subMenu[0].href}
+                  className='hover:shadow-xs flex items-center gap-3 rounded-lg px-4 py-2.5 font-semibold text-slate-600 hover:bg-white hover:shadow-slate-300/50 active:bg-white/75 active:text-slate-800 active:shadow-slate-300/10'
+                >
+                  <span>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      width='24'
+                      height='24'
+                      viewBox='0 0 24 24'
+                    >
+                      <path d={icon} />
+                    </svg>
+                  </span>
                   {title}
-                </OutMenuLink>
+                </Link>
               ) : (
-                <div>
+                <div key={index}>
                   <button
                     onClick={() => handleToggleMenu(index)}
                     className='hover:shadow-xs flex w-full items-center justify-between gap-3 rounded-lg px-4 py-2.5 font-semibold text-slate-600 hover:bg-white hover:shadow-slate-300/50'
                   >
                     <span className='flex items-center gap-3'>
-                      <i className='bi bi-grid-fill inline-block size-4 text-slate-400' />
+                      <span>
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          width='24'
+                          height='24'
+                          viewBox='0 0 24 24'
+                        >
+                          <path d={icon} />
+                        </svg>
+                      </span>
                       <span>{title}</span>
                     </span>
-                    <i
+                    {openMenuIndex == index ? (
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='24'
+                        height='24'
+                        viewBox='0 0 24 24'
+                      >
+                        <path fill='currentColor' d='m7 14l5-5l5 5z' />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='24'
+                        height='24'
+                        viewBox='0 0 24 24'
+                      >
+                        <path
+                          fill='currentColor'
+                          d='M11.475 14.475L7.85 10.85q-.075-.075-.112-.162T7.7 10.5q0-.2.138-.35T8.2 10h7.6q.225 0 .363.15t.137.35q0 .05-.15.35l-3.625 3.625q-.125.125-.25.175T12 14.7t-.275-.05t-.25-.175'
+                        />
+                      </svg>
+                    )}
+                    {/* <i
                       className={`bi ${openMenuIndex == index ? 'bi-chevron-up' : 'bi-chevron-down'} text-slate-400`}
-                    />
+                    /> */}
                   </button>
                   {openMenuIndex == index && (
                     <div className='ml-8 mt-2 space-y-2'>
@@ -211,18 +258,30 @@ const AdminSidebar: React.FC = () => {
 
           <div className='w-full flex-none space-y-3 p-4'>
             {/* Sub Navigation */}
-            {['Settings', 'Logout'].map((text, idx) => (
-              <a
-                key={text}
-                href='#'
-                className='hover:shadow-xs flex items-center gap-3 rounded-lg px-4 py-2.5 font-semibold text-slate-600 hover:bg-white hover:shadow-slate-300/50 active:bg-white/75 active:text-slate-800 active:shadow-slate-300/10'
+            {/* {['Settings', 'Logout'].((text, idx) => ( */}
+            <button
+              type='button'
+              onClick={() => {
+                localStorage.removeItem('token')
+                router.push('/login')
+              }}
+              className='hover:shadow-xs flex w-full items-center gap-3 rounded-lg px-4 py-2.5 font-semibold text-red-600 hover:bg-white hover:shadow-slate-300/50 active:bg-white/75 active:text-slate-800 active:shadow-slate-300/10'
+            >
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                width='24'
+                height='24'
+                viewBox='0 0 24 24'
               >
-                <i
-                  className={`bi ${idx === 0 ? 'bi-gear-fill' : 'bi-lock-fill'} inline-block size-4 text-slate-400`}
+                <rect width='24' height='24' fill='none' />
+                <path
+                  fill='currentColor'
+                  d='M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h6q.425 0 .713.288T12 4t-.288.713T11 5H5v14h6q.425 0 .713.288T12 20t-.288.713T11 21zm12.175-8H10q-.425 0-.712-.288T9 12t.288-.712T10 11h7.175L15.3 9.125q-.275-.275-.275-.675t.275-.7t.7-.313t.725.288L20.3 11.3q.3.3.3.7t-.3.7l-3.575 3.575q-.3.3-.712.288t-.713-.313q-.275-.3-.262-.712t.287-.688z'
                 />
-                <span>{text}</span>
-              </a>
-            ))}
+              </svg>
+              <span>LOGOUT</span>
+            </button>
+            {/* ))} */}
           </div>
         </nav>
 
@@ -255,7 +314,7 @@ const AdminSidebar: React.FC = () => {
                 href='#'
                 className='inline-flex items-center gap-2 text-lg font-bold tracking-wide text-slate-800 transition hover:opacity-75 active:opacity-100'
               >
-                <svg
+                {/* <svg
                   className='inline-block size-4 text-blue-600'
                   xmlns='http://www.w3.org/2000/svg'
                   fill='currentColor'
@@ -263,9 +322,10 @@ const AdminSidebar: React.FC = () => {
                 >
                   <path d='M2.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z' />
                   <path d='M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v2H1V3a1 1 0 0 1 1-1h12zM1 13V6h4v8H2a1 1 0 0 1-1-1zm5 1V6h9v7a1 1 0 0 1-1 1H6z' />
-                </svg>
+                </svg> */}
                 <span>
-                  tail<span className='font-medium text-blue-600'>app</span>
+                  Admin
+                  <span className='font-medium text-blue-600'> Pannel</span>
                 </span>
               </a>
             </div>
