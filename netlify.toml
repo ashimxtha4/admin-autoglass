@@ -6,5 +6,4 @@
   directory = "netlify/functions"
 
 [[plugins]]
-  package = "/plugins/netlify-admin-panel-autoglass-shop"
-
+  package = "@netlify/next"
