@@ -1,26 +1,17 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { FaBars, FaChevronDown, FaTimes } from 'react-icons/fa'
-import { Button } from '../ui/button'
+// import { FaBars, FaChevronDown, FaTimes } from 'react-icons/fa'
+// import { Button } from '../ui/button'
 import Link from 'next/link'
 import SideBarContent from './sidebar-content'
 import { SIDEBAR_MENU_ITEMS } from '@/constants/sidebar-menu-items'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+// SidebarProps
 import { jwtDecode } from 'jwt-decode'
 import toast from 'react-hot-toast'
 
-type SidebarProps = { href: string; children: string }
-
-const OutMenuLink = ({ href, children }: SidebarProps) => (
-  <Link
-    href={href}
-    className='hover:shadow-xs flex items-center gap-3 rounded-lg px-4 py-2.5 font-semibold text-slate-600 hover:bg-white hover:shadow-slate-300/50 active:bg-white/75 active:text-slate-800 active:shadow-slate-300/10'
-  >
-    <span></span>
-    {children}
-  </Link>
-)
+// type SidebarProps = { href: string; children: string; icon: string }
 
 export function isTokenExpired(token: string) {
   try {
@@ -36,9 +27,9 @@ export function isTokenExpired(token: string) {
 }
 
 const AdminSidebar: React.FC = () => {
-  const searchParams = useSearchParams()
+  // const searchParams = useSearchParams()
   const router = useRouter()
-  const search = searchParams?.get('ref')
+  // const search = searchParams?.get('ref')
   // const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null)
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
