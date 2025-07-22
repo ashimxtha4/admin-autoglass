@@ -16,6 +16,7 @@ import VehicleSeries from './vehicle/series/vehicle-series'
 import VehicleGroup from './vehicle/group/vehicle-group'
 import VehicleType from './vehicle/type/vehicle-type'
 import EditProduct from './product/edit-product'
+import Home from './home'
 
 const SideBarContent = () => {
   const searchParams = useSearchParams()
@@ -23,9 +24,11 @@ const SideBarContent = () => {
 
   switch (search) {
     case 'add-products':
-      return <Suspense fallback={<LoadingSpinner />}>
-        <AddProduct />
-      </Suspense>
+      return (
+        <Suspense fallback={<LoadingSpinner />}>
+          <AddProduct />
+        </Suspense>
+      )
     case 'import-products':
       return <ImportProducts />
     case 'product-list':
@@ -57,7 +60,7 @@ const SideBarContent = () => {
     case 'glass-type-list':
       return <ListGlassType />
     default:
-      return
+      return <Home />
   }
 }
 
