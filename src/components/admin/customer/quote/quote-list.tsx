@@ -15,6 +15,7 @@ import QuoteReplyModal from './quote-reply-modal'
 import QuoteCard from './quote-card'
 import AutoGlassPagination from '@/utils/autoglass-pagination'
 import NotFoundMessage from '../../vehicle/utils/not-found-message'
+import QuoteListCard from '@/components/ui/quoteListCard'
 
 const QuoteList = () => {
   const {
@@ -37,7 +38,45 @@ const QuoteList = () => {
     <main className='min-w-fit'>
       <h2 className='mb-4 text-2xl font-bold'>Quotes</h2>
       {isLoading && <LoadingSpinner />}
-      <Table className='rounded-2xl bg-white p-4'>
+      <div className='mb-6 space-y-4'>
+        {quoteList?.length ? (
+          quoteList.map((quote, index) => (
+            <QuoteListCard key={index} quote={quote}>
+              <>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button className='rounded-lg bg-green-500 px-4 py-1 text-white hover:bg-green-600'>
+                      Detail
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <QuoteCard inquiry={quote} />
+                  </DialogContent>
+                </Dialog>
+                <QuoteReplyModal
+                  openReplyModal={openReplyModal}
+                  setOpenReplyModal={setOpenReplyModal}
+                  replyText={replyText}
+                  setReplyText={setReplyText}
+                  isPending={isPending}
+                  handleSendReply={() =>
+                    handleSendReply(quote.id, quote.name, quote.email)
+                  }
+                  handleCancelClick={handleCancelClick}
+                  id={quote.id}
+                  name={quote.name}
+                  email={quote.email}
+                  handleOpenReplyModal={() => handleOpenReplyModal(quote.id)}
+                  selectedQuoteId={selectedQuoteId}
+                />
+              </>
+            </QuoteListCard>
+          ))
+        ) : (
+          <NotFoundMessage>No Quotes Found</NotFoundMessage>
+        )}
+      </div>
+      {/* <Table className='rounded-2xl bg-white p-4'>
         <TableHeader>
           <TableRow>
             <TableHead>Customer Name</TableHead>
@@ -114,7 +153,7 @@ const QuoteList = () => {
             <NotFoundMessage>No Quotes Found</NotFoundMessage>
           )}
         </TableBody>
-      </Table>
+      </Table> */}
       <AutoGlassPagination
         currentPage={quoteMetaData?.current_page || 1}
         itemsPerPage={quoteMetaData?.per_page ?? 15}

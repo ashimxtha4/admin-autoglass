@@ -324,7 +324,7 @@ const AdminSidebar: React.FC = () => {
         </header>
 
         {/* Placeholder for main content and footer, continue if needed */}
-        <main className='flex max-w-full flex-auto flex-col pt-20 lg:pt-0'>
+        <main className='flex max-w-full flex-auto flex-col bg-gray-50 pt-20 lg:pt-0'>
           <div className='container mx-auto p-4'>
             {/* <h1 className="text-3xl font-bold">Dashboard Content</h1> */}
             <SideBarContent />
