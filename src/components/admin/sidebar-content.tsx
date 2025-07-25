@@ -59,6 +59,8 @@ const SideBarContent = () => {
       return <AddGlassType />
     case 'glass-type-list':
       return <ListGlassType />
+    case 'users':
+      return <div>Users is comming soon</div>
     default:
       return <Home />
   }
