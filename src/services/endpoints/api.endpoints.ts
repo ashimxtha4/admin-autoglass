@@ -31,6 +31,9 @@ export const api = {
       post: '/login'
     },
     customer: {
+      list: {
+        get: (page: number) => `/customer/list?page=${page}`
+      },
       quote: {
         list: {
           get: (page: number) => `/admin/customer/quotes?page=${page}`

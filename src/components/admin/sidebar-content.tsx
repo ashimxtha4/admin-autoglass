@@ -17,6 +17,7 @@ import VehicleGroup from './vehicle/group/vehicle-group'
 import VehicleType from './vehicle/type/vehicle-type'
 import EditProduct from './product/edit-product'
 import Home from './home'
+import Users from './users'
 
 const SideBarContent = () => {
   const searchParams = useSearchParams()
@@ -60,7 +61,7 @@ const SideBarContent = () => {
     case 'glass-type-list':
       return <ListGlassType />
     case 'users':
-      return <div>Users is comming soon</div>
+      return <Users />
     default:
       return <Home />
   }
