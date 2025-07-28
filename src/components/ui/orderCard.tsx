@@ -6,24 +6,24 @@ import Image from 'next/image'
 import { ICustomerOrdersProps } from '@/services/api/api-service/admin/customer/orders/product-orders'
 import { baseUrl } from '@/utils/base-url'
 import { DEFAULT_IMAGE } from '@/utils/default-image-url'
-import ProductStatus from '../admin/customer/orders/product-status'
-import { Dialog, DialogContent, DialogTrigger } from '@radix-ui/react-dialog'
-import { useProductOrders } from '@/hooks/admin/orders/product-orders.hooks'
-import OrderItem from '../admin/customer/orders/order-item'
+// import ProductStatus from '../admin/customer/orders/product-status'
+// import { Dialog, DialogContent, DialogTrigger } from '@radix-ui/react-dialog'
+// import { useProductOrders } from '@/hooks/admin/orders/product-orders.hooks'
+// import OrderItem from '../admin/customer/orders/order-item'
 import { cn } from '@/lib/utils'
 
-interface Order {
-  id: string
-  productName: string
-  image: string
-  quantity: number
-  sku: string
-  price: number
-  orderedBy: string
-  address: string
-  shippingId: string
-  trackingId: string
-}
+// interface Order {
+//   id: string
+//   productName: string
+//   image: string
+//   quantity: number
+//   sku: string
+//   price: number
+//   orderedBy: string
+//   address: string
+//   shippingId: string
+//   trackingId: string
+// }
 
 export default function OrderCard({
   order,

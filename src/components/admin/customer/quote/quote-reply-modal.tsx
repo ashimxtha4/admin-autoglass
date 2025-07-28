@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import ButtonLoader from '@/utils/button-loader'
 import React from 'react'
-import { FaReply } from 'react-icons/fa'
+// import { FaReply } from 'react-icons/fa'
 
 interface QuoteReplyModalProps {
   openReplyModal: boolean

@@ -1,7 +1,7 @@
 // components/QuoteListCard.tsx
 'use client'
 
-import { IQuoteListProps } from '@/services/api/api-service/admin/customer/quote/quote-list'
+// import { IQuoteListProps } from '@/services/api/api-service/admin/customer/quote/quote-list'
 import { IProductListProps } from '@/services/api/api-service/admin/product/product-list'
 import { baseUrl } from '@/utils/base-url'
 import { DEFAULT_IMAGE } from '@/utils/default-image-url'
@@ -9,11 +9,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default function ProductCard({
-  product,
-  children
+  product
+  // children
 }: {
   product: IProductListProps
-  children?: React.ReactNode
+  // children?: React.ReactNode
 }) {
   const getStatusColor = () => {
     switch (product.status) {
@@ -38,7 +38,7 @@ export default function ProductCard({
           height={80}
           className='rounded-md object-cover'
         />
-        <div className='flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center w-full'>
+        <div className='flex w-full flex-col items-start justify-between gap-2 sm:flex-row sm:items-center'>
           <div>
             <h2 className='text-lg font-semibold'>{product.name ?? 'N/A'}</h2>
             <p className='text-sm text-gray-500'>{product.mel_stock}</p>

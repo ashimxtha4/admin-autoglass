@@ -1,19 +1,19 @@
 import { useProductOrders } from '@/hooks/admin/orders/product-orders.hooks'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@/components/ui/table'
-import Image from 'next/image'
-import defaultImage from '@/assets/default.png'
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow
+// } from '@/components/ui/table'
+// import Image from 'next/image'
+// import defaultImage from '@/assets/default.png'
 import AutoGlassPagination from '@/utils/autoglass-pagination'
 import { usePaginationPageChange } from '@/hooks/pagination.hook'
-import { baseUrl } from '@/utils/base-url'
-import { cn } from '@/lib/utils'
+// import { baseUrl } from '@/utils/base-url'
+// import { cn } from '@/lib/utils'
 import ProductStatus from './product-status'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import OrderItem from './order-item'
@@ -80,7 +80,7 @@ const ProductOrders = () => {
 
                 return false
               })
-              .map((order, index) => (
+              .map((order) => (
                 <OrderCard key={order.id} order={order}>
                   <>
                     <div className='col-span-full flex flex-wrap gap-2 pt-2'>

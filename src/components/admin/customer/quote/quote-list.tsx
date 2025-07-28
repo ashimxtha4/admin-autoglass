@@ -1,15 +1,15 @@
 import React from 'react'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import { useQuoteInquiry } from '@/hooks/admin/quote/inquiry-quote'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@/components/ui/table'
-import { FaEye } from 'react-icons/fa'
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow
+// } from '@/components/ui/table'
+// import { FaEye } from 'react-icons/fa'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import QuoteReplyModal from './quote-reply-modal'
 import QuoteCard from './quote-card'

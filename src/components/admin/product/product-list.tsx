@@ -1,80 +1,80 @@
 import React from 'react'
 import {
-  IProductListProps,
+  // IProductListProps,
   useGetAdminProductList
 } from '@/services/api/api-service/admin/product/product-list'
 import { LoadingSpinner } from '@/components/ui/loading-spinner'
 import AutoGlassPagination from '@/utils/autoglass-pagination'
 import { usePaginationPageChange } from '@/hooks/pagination.hook'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@/components/ui/table'
-import Image from 'next/image'
-import defaultImage from '@/assets/default.png'
-import { baseUrl } from '@/utils/base-url'
-import { FaEye, FaEdit } from 'react-icons/fa'
-import Link from 'next/link'
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow
+// } from '@/components/ui/table'
+// import Image from 'next/image'
+// import defaultImage from '@/assets/default.png'
+// import { baseUrl } from '@/utils/base-url'
+// import { FaEye, FaEdit } from 'react-icons/fa'
+// import Link from 'next/link'
 import ProductCard from './productCard'
 
 const ProductList = () => {
   const { data: products, isLoading, isError } = useGetAdminProductList()
-  const dummyProducts: IProductListProps[] = [
-    {
-      id: 1,
-      name: 'Toyota Corolla Front Windshield',
-      sku: 'TY-FW-001',
-      price: '250.00',
-      image: '/images/corolla.png',
-      status: 'Available',
-      syd_stock: 12,
-      mel_stock: 8
-    },
-    {
-      id: 2,
-      name: 'Honda Civic Rear Windshield',
-      sku: 'HN-RW-002',
-      price: '190.00',
-      image: '/images/civic.png',
-      status: 'Low Stock',
-      syd_stock: 3,
-      mel_stock: 2
-    },
-    {
-      id: 3,
-      name: 'Ford Ranger Side Glass',
-      sku: 'FD-SG-003',
-      price: '145.00',
-      image: '/images/ranger.png',
-      status: 'Out of Stock',
-      syd_stock: 0,
-      mel_stock: 0
-    },
-    {
-      id: 4,
-      name: 'Mazda CX-5 Rear Door Glass',
-      sku: 'MZ-RD-004',
-      price: '175.00',
-      image: '/images/cx5.png',
-      status: 'Available',
-      syd_stock: 6,
-      mel_stock: 9
-    },
-    {
-      id: 5,
-      name: 'Nissan X-Trail Windshield',
-      sku: 'NS-FW-005',
-      price: '210.00',
-      image: '/images/xtrail.png',
-      status: 'Available',
-      syd_stock: 10,
-      mel_stock: 7
-    }
-  ]
+  // const dummyProducts: IProductListProps[] = [
+  //   {
+  //     id: 1,
+  //     name: 'Toyota Corolla Front Windshield',
+  //     sku: 'TY-FW-001',
+  //     price: '250.00',
+  //     image: '/images/corolla.png',
+  //     status: 'Available',
+  //     syd_stock: 12,
+  //     mel_stock: 8
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Honda Civic Rear Windshield',
+  //     sku: 'HN-RW-002',
+  //     price: '190.00',
+  //     image: '/images/civic.png',
+  //     status: 'Low Stock',
+  //     syd_stock: 3,
+  //     mel_stock: 2
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Ford Ranger Side Glass',
+  //     sku: 'FD-SG-003',
+  //     price: '145.00',
+  //     image: '/images/ranger.png',
+  //     status: 'Out of Stock',
+  //     syd_stock: 0,
+  //     mel_stock: 0
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Mazda CX-5 Rear Door Glass',
+  //     sku: 'MZ-RD-004',
+  //     price: '175.00',
+  //     image: '/images/cx5.png',
+  //     status: 'Available',
+  //     syd_stock: 6,
+  //     mel_stock: 9
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Nissan X-Trail Windshield',
+  //     sku: 'NS-FW-005',
+  //     price: '210.00',
+  //     image: '/images/xtrail.png',
+  //     status: 'Available',
+  //     syd_stock: 10,
+  //     mel_stock: 7
+  //   }
+  // ]
 
   const { handlePageChange } = usePaginationPageChange()
 

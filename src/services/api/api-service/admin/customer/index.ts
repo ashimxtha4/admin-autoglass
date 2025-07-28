@@ -1,7 +1,7 @@
 import httpClient from '@/services/api/axios-service'
 import { api } from '@/services/endpoints/api.endpoints'
 import { IGenericResponse } from '@/utils/generic-data-response'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { isAxiosError } from 'axios'
 import { useSearchParams } from 'next/navigation'
 
@@ -42,7 +42,7 @@ const getCustomerList = async (page: number) => {
 }
 
 export const useGetCustomerList = () => {
-  const queryClient = useQueryClient()
+//   const queryClient = useQueryClient()
   const searchParams = useSearchParams()
   const page = parseInt(searchParams?.get('page') || '1')
   return useQuery({

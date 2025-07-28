@@ -3,15 +3,15 @@
 
 import { IQuoteListProps } from '@/services/api/api-service/admin/customer/quote/quote-list'
 
-interface Quote {
-  id: string
-  customerName: string
-  phone: string
-  email: string
-  preferredType: string
-  replyMessage: string
-  status: 'Pending' | 'Replied' | 'Closed'
-}
+// interface Quote {
+//   id: string
+//   customerName: string
+//   phone: string
+//   email: string
+//   preferredType: string
+//   replyMessage: string
+//   status: 'Pending' | 'Replied' | 'Closed'
+// }
 
 export default function QuoteListCard({
   quote,
